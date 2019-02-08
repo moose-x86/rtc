@@ -54,7 +54,7 @@ file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/room.xml DESTINATION ${CMAKE_BINARY
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/ulica.xml DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/sun_room.xml DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/coffee_tables.xml DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)
-file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/cornell_box.xml DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)
+#file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/cornell_box.xml DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/kitchen.xml DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/bottles.xml DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/collada/cornell_box.dae DESTINATION ${CMAKE_BINARY_DIR}/graphics_view/)

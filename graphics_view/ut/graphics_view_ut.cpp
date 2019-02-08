@@ -108,6 +108,7 @@ TEST(graphics_view_ut, road_test)
   b.save("road.bmp");
 }
 
+/*
 TEST(graphics_view_ut, cornell_test)
 {
   auto data = std::make_shared<rtc::brs>("cornell_box.xml");
@@ -122,6 +123,7 @@ TEST(graphics_view_ut, cornell_test)
 
   b.save("brs_cornell_box.bmp");
 }
+*/
 
 TEST(graphics_view_ut, collada_cornell_box_test)
 {
