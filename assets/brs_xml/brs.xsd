@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:element name="model">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="points"/>
+        <xs:element ref="triangles"/>
+        <xs:element ref="attributes"/>
+        <xs:element ref="lights"/>
+        <xs:element ref="observers"/>
+      </xs:sequence>
+      <xs:attribute name="create" use="required" type="xs:date"/>
+      <xs:attribute name="modify" use="required" type="xs:date"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="points">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="point"/>
+      </xs:sequence>
+      <xs:attribute name="size" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="point">
+    <xs:complexType>
+      <xs:attribute name="id" use="required" type="xs:integer"/>
+      <xs:attribute name="x" use="required" type="xs:decimal"/>
+      <xs:attribute name="y" use="required" type="xs:decimal"/>
+      <xs:attribute name="z" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="triangles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="triangle"/>
+      </xs:sequence>
+      <xs:attribute name="size" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="triangle">
+    <xs:complexType>
+      <xs:attribute name="attribute" use="required" type="xs:integer"/>
+      <xs:attribute name="v1" use="required" type="xs:integer"/>
+      <xs:attribute name="v2" use="required" type="xs:integer"/>
+      <xs:attribute name="v3" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="attributes">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="attribute"/>
+      </xs:sequence>
+      <xs:attribute name="size" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="attribute">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="p"/>
+        <xs:element ref="color"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="p">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:NMTOKEN">
+          <xs:attribute name="name" use="required" type="xs:NCName"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="lights">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="ambient"/>
+        <xs:element maxOccurs="unbounded" ref="light"/>
+      </xs:sequence>
+      <xs:attribute name="size" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ambient">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="color"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="light">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="position"/>
+        <xs:element ref="color"/>
+        <xs:element ref="radius"/>
+        <xs:element ref="sampling"/>
+      </xs:sequence>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="radius" type="xs:decimal"/>
+  <xs:element name="sampling" type="xs:integer"/>
+  <xs:element name="observers">
+    <xs:complexType>
+      <xs:sequence minOccurs="1" maxOccurs="unbounded">
+        <xs:element ref="camera"/>
+      </xs:sequence>
+      <xs:attribute name="active" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="camera">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="position"/>
+        <xs:element ref="screen"/>
+      </xs:sequence>
+      <xs:attribute name="id" use="required" type="xs:integer"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="screen">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="resolution"/>
+        <xs:element maxOccurs="4" ref="corner" minOccurs="3"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="resolution">
+    <xs:complexType>
+      <xs:attribute name="x" use="required" type="xs:integer"/>
+      <xs:attribute name="y" use="required" type="xs:integer"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="corner">
+    <xs:complexType>
+      <xs:attribute name="position" use="required" type="xs:string"/>
+      <xs:attribute name="x" use="required" type="xs:decimal"/>
+      <xs:attribute name="y" use="required" type="xs:decimal"/>
+      <xs:attribute name="z" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="color">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="r"/>
+        <xs:element ref="g"/>
+        <xs:element ref="b"/>
+      </xs:sequence>
+      <xs:attribute name="max" use="required" type="xs:decimal"/>
+      <xs:attribute name="min" use="required" type="xs:decimal"/>
+      <xs:attribute name="model" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="r" type="xs:decimal"/>
+  <xs:element name="g" type="xs:decimal"/>
+  <xs:element name="b" type="xs:decimal"/>
+  <xs:element name="position">
+    <xs:complexType>
+      <xs:attribute name="x" use="required" type="xs:decimal"/>
+      <xs:attribute name="y" use="required" type="xs:decimal"/>
+      <xs:attribute name="z" use="required" type="xs:decimal"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

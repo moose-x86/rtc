@@ -1,0 +1,787 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<model name="scene5" create="20-12-2013" modify="21-12-2013">
+  <points size="7">
+    <point id="0" x="2.25" y="0.42" z="-2.046"/>
+    <point id="1" x="2.25" y="0.42" z="3.454"/>
+    <point id="2" x="-2.45" y="0.42" z="3.454"/>
+    <point id="3" x="-2.45" y="0.42" z="-2.046"/>
+    <point id="4" x="0.25" y="1.32" z="0.454"/>
+    <point id="5" x="-0.45" y="1.42" z="1.454"/>
+    <point id="6" x="-0.45" y="1.12" z="-0.046"/>
+  </points>
+  <triangles size="3">
+    <triangle v1="0" v2="2" v3="1" attribute="4"/>
+    <triangle v1="0" v2="3" v3="2" attribute="4"/>
+    <triangle v1="4" v2="5" v3="6" attribute="5"/>
+  </triangles>
+  <attributes size="28">
+    <attribute id="0" name="A000001">
+      <p name="kd">0.2</p>
+      <p name="ks">0.5</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">true</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>199</r>
+        <g>199</g>
+        <b>199</b>
+      </color>
+    </attribute>
+    <attribute id="1" name="A000002">
+      <p name="kd">0.5</p>
+      <p name="ks">0.5</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>169</r>
+        <g>7</g>
+        <b>7</b>
+      </color>
+    </attribute>
+    <attribute id="2" name="A000003">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>130</r>
+        <g>84</g>
+        <b>33</b>
+      </color>
+    </attribute>
+    <attribute id="3" name="A000004">
+      <p name="kd">0.7</p>
+      <p name="ks">0.1</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0.4</p>
+      <p name="kf">0</p>
+      <p name="gs">10</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>20</r>
+        <g>15</g>
+        <b>5</b>
+      </color>
+    </attribute>
+    <attribute id="4" name="A000005">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>102</r>
+        <g>102</g>
+        <b>102</b>
+      </color>
+    </attribute>
+    <attribute id="5" name="A000006">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0.2</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>255</r>
+        <g>224</g>
+        <b>191</b>
+      </color>
+    </attribute>
+    <attribute id="6" name="A000007">
+      <p name="kd">0.3</p>
+      <p name="ks">0.1</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>5</r>
+        <g>159</g>
+        <b>8</b>
+      </color>
+    </attribute>
+    <attribute id="7" name="A000008">
+      <p name="kd">0.8</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+    <attribute id="8" name="A000009">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>119</r>
+        <g>93</g>
+        <b>0</b>
+      </color>
+    </attribute>
+    <attribute id="9" name="A000010">
+      <p name="kd">0.5</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+    <attribute id="10" name="A000011">
+      <p name="kd">0.3</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0.2</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>210</r>
+        <g>200</g>
+        <b>195</b>
+      </color>
+    </attribute>
+    <attribute id="11" name="A000012">
+      <p name="kd">0.2</p>
+      <p name="ks">0.5</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0.1</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">0.5</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+    <attribute id="12" name="A000013">
+      <p name="kd">0.5</p>
+      <p name="ks">1</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+    <attribute id="13" name="A000014">
+      <p name="kd">0.3</p>
+      <p name="ks">0.1</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">10</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>200</r>
+        <g>200</g>
+        <b>200</b>
+      </color>
+    </attribute>
+    <attribute id="14" name="A000015">
+      <p name="kd">0.1</p>
+      <p name="ks">0.1</p>
+      <p name="kts">0.8</p>
+      <p name="ktd">0.1</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">10</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>150</r>
+        <g>150</g>
+        <b>150</b>
+      </color>
+    </attribute>
+    <attribute id="15" name="set_login_part_0_bundle_0">
+      <p name="kd">0.5</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>199</r>
+        <g>199</g>
+        <b>199</b>
+      </color>
+    </attribute>
+    <attribute id="16" name="set_login_part_1_bundle_0">
+      <p name="kd">0.5</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>169</r>
+        <g>7</g>
+        <b>7</b>
+      </color>
+    </attribute>
+    <attribute id="17" name="set_login_part_2_bundle_0">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>130</r>
+        <g>84</g>
+        <b>33</b>
+      </color>
+    </attribute>
+    <attribute id="18" name="set_login_part_3_bundle_0">
+      <p name="kd">0.3</p>
+      <p name="ks">0.1</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">10</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">false</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>20</r>
+        <g>15</g>
+        <b>5</b>
+      </color>
+    </attribute>
+    <attribute id="19" name="set_login_part_4_bundle_0">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>102</r>
+        <g>102</g>
+        <b>102</b>
+      </color>
+    </attribute>
+    <attribute id="20" name="set_login_part_5_bundle_0">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>255</r>
+        <g>224</g>
+        <b>191</b>
+      </color>
+    </attribute>
+    <attribute id="21" name="set_login_part_6_bundle_0">
+      <p name="kd">0.3</p>
+      <p name="ks">0.1</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">false</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>5</r>
+        <g>159</g>
+        <b>8</b>
+      </color>
+    </attribute>
+    <attribute id="22" name="set_login_part_7_bundle_0">
+      <p name="kd">0.5</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+    <attribute id="23" name="set_login_part_8_bundle_0">
+      <p name="kd">0.4</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>119</r>
+        <g>93</g>
+        <b>0</b>
+      </color>
+    </attribute>
+    <attribute id="24" name="set_login_part_9_bundle_0">
+      <p name="kd">0.5</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+    <attribute id="25" name="set_login_part_10_bundle_0">
+      <p name="kd">0.5</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>210</r>
+        <g>200</g>
+        <b>195</b>
+      </color>
+    </attribute>
+    <attribute id="26" name="set_login_part_11_bundle_0">
+      <p name="kd">0.2</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+    <attribute id="27" name="set_login_part_12_bundle_0">
+      <p name="kd">0.7</p>
+      <p name="ks">0</p>
+      <p name="kts">0</p>
+      <p name="ktd">0</p>
+      <p name="ka">0</p>
+      <p name="kf">0</p>
+      <p name="gs">1</p>
+      <p name="gm">1</p>
+      <p name="selfLuminance">0</p>
+      <p name="HeatLam">1.0000</p>
+      <p name="ft">1</p>
+      <p name="eta">1</p>
+      <p name="oneSheet">false</p>
+      <p name="reflection">true</p>
+      <p name="indirect">true</p>
+      <p name="mirror">false</p>
+      <p name="shadowcast">true</p>
+      <p name="shadowfall">true</p>
+      <p name="shading">guard</p>
+      <color model="RGB" min="0" max="255">
+        <r>166</r>
+        <g>129</g>
+        <b>88</b>
+      </color>
+    </attribute>
+  </attributes>
+  <lights size="2">
+    <ambient>
+      <color model="RGB" min="0.0" max="1.0">
+        <r>3</r>
+        <g>3</g>
+        <b>3</b>
+      </color>
+    </ambient>
+    <light name="L000001" type="spherical">
+      <position x="-0.1865" y="20.698" z="2.7565"/>
+      <color model="RGB" min="0.0" max="1.0">
+        <r>1</r>
+        <g>1</g>
+        <b>1</b>
+      </color>
+      <radius>0.1</radius>
+      <sampling>1</sampling>
+    </light>
+    <light name="L000002" type="spherical">
+      <position x="0.3237" y="2.8137" z="0.4075"/>
+      <color model="RGB" min="0.0" max="1.0">
+        <r>1</r>
+        <g>1</g>
+        <b>1</b>
+      </color>
+      <radius>0.1</radius>
+      <sampling>1</sampling>
+    </light>
+  </lights>
+  <observers active="0">
+    <camera id="0" name="C000001">
+      <position x="4.38" y="1.5" z="-6.98"/>
+      <screen>
+        <resolution x="320" y="200"/>
+        <corner position="left upper" x="-3.9924" y="4.0755" z="-0.2463"/>
+        <corner position="right upper" x="2.7924" y="4.0755" z="3.6463"/>
+        <corner position="left lower" x="-3.9924" y="-1.0755" z="-0.2463"/>
+      </screen>
+    </camera>
+  </observers>
+</model>
