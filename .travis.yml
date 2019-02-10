@@ -1,5 +1,5 @@
 sudo: required
-dist: trusty
+dist: cosmic
 language: cpp
 env:
   global:
