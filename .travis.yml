@@ -44,6 +44,7 @@ script:
   - mkdir build
   - cd build
   - ls -al /usr/local/bin
+  - ls -al /usr/local/cmake-3.9.2
   - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake-3.10 .. -DCMAKE_BUILD_TYPE=Release
   - echo "We have" `nproc` "cores here"
   - make -j `nproc`
