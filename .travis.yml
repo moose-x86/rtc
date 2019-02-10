@@ -11,7 +11,7 @@ matrix:
             - ubuntu-toolchain-r-test
             - boost-latest
           packages:
-            -  libboost1.65-all-dev
+            -  libboost1.67-all-dev
             - g++-8
       env:
       - C_COMPILER=gcc-8
@@ -32,7 +32,7 @@ matrix:
 before_install:
  # Install a supported cmake version (>= 3.4.3)
  - wget -O cmake.sh https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh 
-- sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
+ - sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
 
 # Build steps
 script:
