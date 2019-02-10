@@ -1,0 +1,44 @@
+sudo: required
+dist: trusty
+language: cpp
+
+matrix:
+  include:
+    - compiler: gcc
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+          packages:
+            - g++-8
+      env:
+      - C_COMPILER=gcc-8
+      - CXX_COMPILER=g++-8
+    # - compiler: clang
+    #   addons:
+    #     apt:
+    #       sources:
+    #         - ubuntu-toolchain-r-test
+    #         - llvm-toolchain-trusty-3.8
+    #       packages:
+    #         - clang-3.8
+    #   env:
+    #   - C_COMPILER=clang-3.8
+    #   - CXX_COMPILER=clang++-3.8
+
+# Build steps
+script:
+  - mkdir boost-dl; cd boost-dl
+  - wget https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.bz2
+  - tar --bzip2 -xf ./boost_1_65_1.tar.bz2
+  - sudo mv ./boost_1_65_1/boost /usr/include
+  - cd ..
+  - mkdir build
+  - cd build
+  - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake .. -DENABLE_COVERAGE:BOOL=TRUE -DSFML_ROOT=$SFML
+  - echo "We have" `nproc` "cores here"
+  - make -j `nproc`
+  - ctest -j `nproc` -V
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
