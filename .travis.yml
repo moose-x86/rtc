@@ -33,7 +33,8 @@ before_install:
  # Install a supported cmake version (>= 3.4.3)
  - wget -O cmake.sh https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh 
  - sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local
- - sudo ln -s /usr/local/bin/cmake /usr/local/cmake-3.10
+ - sudo rm /usr/local/cmake
+ - sudo ln -s /usr/local/bin/cmake /usr/local/cmake
 # Build steps
 script:
 #  - mkdir boost-dl; cd boost-dl
@@ -45,7 +46,7 @@ script:
   - cd build
   - ls -al /usr/local/bin
   - ls -al /usr/local/cmake-3.9.2
-  - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake-3.10 .. -DCMAKE_BUILD_TYPE=Release
+  - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake .. -DCMAKE_BUILD_TYPE=Release
   - echo "We have" `nproc` "cores here"
   - make -j `nproc`
   - ctest -j `nproc` -V
