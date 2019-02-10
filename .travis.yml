@@ -10,7 +10,7 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - boost1.65
+            - libboost-all-dev
             - g++-8
       env:
       - C_COMPILER=gcc-8
