@@ -1,6 +1,9 @@
 sudo: required
 dist: trusty
 language: cpp
+env:
+  global:
+  - PATH="/usr/local/cmake-3.10/bin:$PATH"
 
 matrix:
   include:
@@ -34,8 +37,6 @@ before_install:
  - wget -O cmake.sh https://cmake.org/files/v3.10/cmake-3.10.0-rc1-Linux-x86_64.sh 
  - sudo mkdir /usr/local/cmake-3.10
  - sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local/cmake-3.10
- - sudo rm /usr/local/cmake
- - sudo ln -s /usr/local/cmake-3.10 /usr/local/cmake
 # Build steps
 script:
 #  - mkdir boost-dl; cd boost-dl
@@ -45,6 +46,7 @@ script:
 #  - cd ..
   - mkdir build
   - cd build
+  - echo $PATH
   - ls -al /usr/local/
   - ls -al /usr/local/cmake-3.10
   - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake .. -DCMAKE_BUILD_TYPE=Release
