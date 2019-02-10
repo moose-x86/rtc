@@ -39,6 +39,7 @@ before_install:
 
 script:
   - mkdir build
+  - ls -al /usr/lib
   - cd build
   - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake .. -DCMAKE_BUILD_TYPE=Release
   - echo "We have" `nproc` "cores here"
