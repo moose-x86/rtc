@@ -9,9 +9,9 @@ matrix:
         apt:
           sources:
             - ubuntu-toolchain-r-test
-            - sourceline: 'ppa:mhier/libboost-latest'
+            - boost-latest
           packages:
-            - boost1.65
+            -  libboost1.65-all-dev
             - g++-8
       env:
       - C_COMPILER=gcc-8
