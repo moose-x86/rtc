@@ -46,6 +46,7 @@ before_install:
 script:
   - mkdir build
   - ls -al $BOOST_ROOT
+  - ls -al $BOOST_ROOT/lib
   - cd build
   - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake .. -DBOOST_ROOT=$BOOST_ROOT -DCMAKE_BUILD_TYPE=Release
   - echo "We have" `nproc` "cores here"
