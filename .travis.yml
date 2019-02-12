@@ -37,15 +37,16 @@ before_install:
  - wget  --output-document=boost-trunk.tar.bz2 http://ufpr.dl.sourceforge.net/project/boost/boost/1.65.0/boost_1_65_0.tar.bz2
  - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost-trunk"
  - mkdir -p $BOOST_ROOT
+ - sudo update-alternatives --set gcc "/usr/bin/gcc-8"
+ - sudo update-alternatives --set g++ "/usr/bin/g++-8"
  - tar jxf boost-trunk.tar.bz2 --strip-components=1 -C $BOOST_ROOT
- - cd $BOOST_ROOT
- - env CC=${C_COMPILER} CXX=${CXX_COMPILER} ./bootstrap.sh --with-libraries=thread,system,chrono,fiber,atomic,context,filesystem
- - env CC=${C_COMPILER} CXX=${CXX_COMPILER} ./b2 threading=multi --prefix=$BOOST_ROOT -d0 install
+ - (cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=thread,system,chrono,fiber,atomic,context,filesystem)
+ - (cd $BOOST_ROOT; ./b2 threading=multi --prefix=$BOOST_ROOT -d0 install)
  - uname -a
  - pwd
 
 script:
-  - mkdir $TRAVIS_BUILD_DIR
+  - mkdir build
   - ls -al $BOOST_ROOT
   - ls -al $BOOST_ROOT/lib
   - cd build
