@@ -37,6 +37,8 @@ before_install:
  - wget  --output-document=boost-trunk.tar.bz2 http://ufpr.dl.sourceforge.net/project/boost/boost/1.65.0/boost_1_65_0.tar.bz2
  - export BOOST_ROOT="$TRAVIS_BUILD_DIR/../boost-trunk"
  - mkdir -p $BOOST_ROOT
+ - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-8 10
+ - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-8 10
  - sudo update-alternatives --set gcc "/usr/bin/gcc-8"
  - sudo update-alternatives --set g++ "/usr/bin/g++-8"
  - tar jxf boost-trunk.tar.bz2 --strip-components=1 -C $BOOST_ROOT
