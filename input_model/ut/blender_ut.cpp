@@ -6,7 +6,7 @@ namespace rtc
 namespace ut
 {
 
-TEST(blender_ut, basic_test)
+TEST(blender_ut, DISABLED_basic_test)
 {
   auto b = blend{"Wind.blend"};
 
