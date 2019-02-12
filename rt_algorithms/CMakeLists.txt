@@ -8,10 +8,10 @@ endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
   if (CMAKE_BUILD_TYPE STREQUAL "Release")
-    set(CMAKE_CXX_FLAGS "--std=c++17 -Ofast ${SSE4_FLAG} -pedantic")        ## Optimize
+    set(CMAKE_CXX_FLAGS "-Ofast ${SSE4_FLAG} -pedantic")        ## Optimize
     #set(CMAKE_EXE_LINKER_FLAGS "-s")  ## Strip binary
    else()
-    set(CMAKE_CXX_FLAGS "--std=c++17 -ggdb -O0 -pedantic")        ## no Optimize
+    set(CMAKE_CXX_FLAGS "-ggdb -O0 -pedantic")        ## no Optimize
   endif()
 endif()
 
@@ -29,6 +29,7 @@ target_link_libraries(rtc_rt_algorithms INTERFACE rtc_kd_tree) #why private trig
 #target_link_libraries(rtc_rt_algorithms INTERFACE ${Boost_THREAD_LIBRARY_RELEASE}) #why private triggers error
 
 
+
 FILE(GLOB RTC_rt_algorithms_TESTS
      ut/*.cpp
 )
@@ -36,6 +37,11 @@ FILE(GLOB RTC_rt_algorithms_TESTS
 add_executable(rtc_rt_algorithms_ut ${RTC_rt_algorithms_TESTS})
 target_include_directories(rtc_rt_algorithms_ut SYSTEM PRIVATE ${GMOCK_INCLUDE_DIR} ${GTEST_INCLUDE_DIR})
 
+set_target_properties(rtc_rt_algorithms_ut PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED YES
+    CXX_EXTENSIONS NO
+)
 
 if(${ENABLE_COVERAGE})
   add_compile_options(--coverage -O0)
