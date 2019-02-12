@@ -78,7 +78,7 @@ void kd_tree::build_tree(std::unique_ptr<tree_node>& node,
 
   bad_refines += (cost > old_cost) ? 1 : 0;
 
-  auto no_use_of_spliting_node = [=, &tr]{
+  auto no_use_of_spliting_node = [old_cost = old_cost, cost = cost, axis = axis, &bad_refines, &tr]{
     return ((cost > 4*old_cost) && (tr.size() < 16)) || (axis == -1) || (bad_refines == 3);
   };
 
