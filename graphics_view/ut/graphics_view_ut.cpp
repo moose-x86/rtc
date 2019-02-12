@@ -93,7 +93,8 @@ TEST(graphics_view_ut, coffee_tables_test)
   b.save("coffee_tables.bmp");
 }
 
-TEST(graphics_view_ut, road_test)
+
+TEST(graphics_view_ut, DISABLED_road_test)
 {
   auto data = std::make_shared<rtc::brs>("ulica.xml");
   rtc::graphics_view<> gv{data};
@@ -108,8 +109,8 @@ TEST(graphics_view_ut, road_test)
   b.save("road.bmp");
 }
 
-/*
-TEST(graphics_view_ut, cornell_test)
+
+TEST(graphics_view_ut, DISABLED_cornell_test)
 {
   auto data = std::make_shared<rtc::brs>("cornell_box.xml");
   rtc::graphics_view<> gv{data};
@@ -123,7 +124,7 @@ TEST(graphics_view_ut, cornell_test)
 
   b.save("brs_cornell_box.bmp");
 }
-*/
+
 
 TEST(graphics_view_ut, collada_cornell_box_test)
 {
