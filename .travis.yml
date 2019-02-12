@@ -15,20 +15,20 @@ matrix:
           packages:
             - g++-8 
       env:
-      - C_COMPILER=gcc-8
-      - CXX_COMPILER=g++-8
-
-    # - compiler: clang
-    #   addons:
-    #     apt:
-    #       sources:
-    #         - ubuntu-toolchain-r-test
-    #         - llvm-toolchain-trusty-3.8
-    #       packages:
-    #         - clang-3.8
-    #   env:
-    #   - C_COMPILER=clang-3.8
-    #   - CXX_COMPILER=clang++-3.8
+        - C_COMPILER=gcc-8
+        - CXX_COMPILER=g++-8
+    
+    - compiler: clang
+      addons:
+        apt:
+          sources:
+            - ubuntu-toolchain-r-test
+            - llvm-toolchain-trusty-5
+          packages:
+            - clang-5
+      env:
+         - C_COMPILER=clang-5
+         - CXX_COMPILER=clang++-5
 
 before_install:
  - wget -O cmake.sh https://cmake.org/files/v3.13/cmake-3.13.1-Linux-x86_64.sh 
@@ -50,7 +50,7 @@ before_install:
 script:
   - mkdir build
   - cd build
-  - cmake .. -DBOOST_ROOT=$BOOST_ROOT -DCMAKE_BUILD_TYPE=Release
+  - env CC=${C_COMPILER} CXX=${CXX_COMPILER} cmake .. -DBOOST_ROOT=$BOOST_ROOT -DCMAKE_BUILD_TYPE=Release
   - echo "We have" `nproc` "cores here"
   - make -j `nproc`
   - ctest -j `nproc` -V
