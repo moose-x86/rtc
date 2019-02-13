@@ -23,7 +23,7 @@ bool point_in_triangle_test::triangle_contains(const math_point& p) const noexce
   const rtc_float ac = a[0] * vec_x + a[1] * vec_y;
   const rtc_float bc = a[2] * vec_x + a[3] * vec_y;
 
-  return (ac > 0.0f) && (bc > 0.0f) && (ac + bc < 1.0f);
+  return (ac >= 0.0f) && (bc >= 0.0f) && (ac + bc <= 1.0f);
 }
 
 void point_in_triangle_test::compute_all_needed_factors(const math_point& p1,

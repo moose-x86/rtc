@@ -70,7 +70,7 @@ TEST(kd_tree_ut, kitchen_test_found)
   ASSERT_TRUE(intersect && intersect.is_with(6695));
 }
 
-TEST(kd_tree_ut, kitchen_test_found_2)
+TEST(kd_tree_ut, DISABLED_kitchen_test_found_2)
 {
   auto scene = std::make_shared<rtc::brs>("./kitchen.xml");
   rtc::kd_tree acc{*scene};
