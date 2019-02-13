@@ -5,12 +5,14 @@ enable_testing()
 
 set(GMOCK_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/externals/googlemock/googlemock/include")
 set(GTEST_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/externals/googletest/googletest/include")
+
 set(ASSIMP_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/externals/assimp/include")
 set(ASSIMP_BUILD_ALL_IMPORTERS_BY_DEFAULT CACHE INTERNAL FALSE)
+SET(ASSIMP_BUILD_TESTS OFF CACHE BOOL "Turn of assimp tests")
+SET(ASSIMP_BUILD_ASSIMP_TOOLS OFF CACHE BOOL "Turn off assimp tools")
+
 set(ASSIMP_BUILD_COLLADA_IMPORTER ON)
-set(ASSIMP_BUILD_SMD_IMPORTER ON)
-set(ASSIMP_BUILD_SIB_IMPORTER ON)
-set(ASSIMP_BUILD_OBJ_IMPORTER ON)
+SET(BUILD_SHARED_LIBS OFF CACHE BOOL "Build static libs")
 
 if("${SSE4_DISABLE}" STREQUAL "yes")
   set(SSE4_FLAG "")

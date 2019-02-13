@@ -52,5 +52,6 @@ target_link_libraries(rtc_rt_algorithms_ut PRIVATE input_model rtc_rt_algorithms
 add_test(rtc_rt_algorithms_ut ${CMAKE_BINARY_DIR}/rt_algorithms/rtc_rt_algorithms_ut --gtest_color=yes)
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/room.xml DESTINATION ${CMAKE_BINARY_DIR}/rt_algorithms/)
+file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/ulica.xml DESTINATION ${CMAKE_BINARY_DIR}/rt_algorithms/)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/sun_room.xml DESTINATION ${CMAKE_BINARY_DIR}/rt_algorithms/)
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/bottles.xml DESTINATION ${CMAKE_BINARY_DIR}/rt_algorithms/)
