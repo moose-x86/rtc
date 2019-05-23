@@ -20,7 +20,7 @@ before_build:
 build_script:
   - mkdir build
   - cd build
-  - cmake .. -G"Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=%Configuration%
+  - cmake .. -G"Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=%Configuration% -DBOOST_ROOT=C:\Libraries\boost_1_67_0 
   - cmake --build .
 
 test_script:
