@@ -6,7 +6,7 @@ build:
 environment:
   matrix:
   - Build: rtc
-    Configuration: Debug
+    Configuration: Release
 
 platform:
 - x64
@@ -21,7 +21,7 @@ build_script:
   - mkdir build
   - cd build
   - cmake .. -G"Visual Studio 15 2017 Win64" -DCMAKE_BUILD_TYPE=%Configuration% -DBOOST_ROOT=C:\Libraries\boost_1_67_0 
-  - cmake --build .
+  - cmake --build . --config %Configuration%
 
 test_script:
   - ps: |
