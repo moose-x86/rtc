@@ -15,7 +15,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   endif()
 endif()
 
-find_package(Boost COMPONENTS thread)
+find_package(Boost COMPONENTS thread date_time)
 
 enable_testing()
 

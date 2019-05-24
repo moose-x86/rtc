@@ -15,7 +15,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   endif()
 endif()
 
-find_package(Boost COMPONENTS thread system fiber context)
+find_package(Boost COMPONENTS thread system fiber context date_time)
 
 enable_testing()
 
