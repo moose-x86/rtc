@@ -15,7 +15,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   endif()
 endif()
 
-find_package(Boost COMPONENTS thread system)
+find_package(Boost COMPONENTS thread)
 
 enable_testing()
 
@@ -26,7 +26,7 @@ add_library(rtc_rt_service INTERFACE)
 
 target_include_directories(rtc_rt_service INTERFACE include/ ${Boost_INCLUDE_DIRS})
 target_link_libraries(rtc_rt_service INTERFACE rtc_kd_tree) #why private triggers error
-target_link_libraries(rtc_rt_service INTERFACE ${Boost_THREAD_LIBRARY_RELEASE} ${Boost_SYSTEM_LIBRARY_RELEASE})#why private triggers error
+target_link_libraries(rtc_rt_service INTERFACE Boost::thread)#why private triggers error
 
 
 FILE(GLOB RTC_RT_SERVICE_TESTS
