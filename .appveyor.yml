@@ -6,7 +6,7 @@ build:
 environment:
   matrix:
   - Build: rtc
-    Configuration: Debug
+    Configuration: Release
 
 platform:
 - x64
