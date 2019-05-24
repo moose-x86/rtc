@@ -28,6 +28,7 @@ target_include_directories(rtc_rt_service INTERFACE include/ ${Boost_INCLUDE_DIR
 target_link_libraries(rtc_rt_service INTERFACE rtc_kd_tree) #why private triggers error
 target_link_libraries(rtc_rt_service INTERFACE Boost::thread)#why private triggers error
 
+message(STATUS "Detected boost thread: ${Boost_THREAD_LIBRARY_RELEASE}")
 
 FILE(GLOB RTC_RT_SERVICE_TESTS
      ut/*.cpp
