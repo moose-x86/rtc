@@ -15,7 +15,7 @@ if(CMAKE_COMPILER_IS_GNUCXX)
   endif()
 endif()
 
-find_package(Boost REQUIRED)
+find_package(Boost COMPONENTS date_time REQUIRED)
 
 enable_testing()
 
