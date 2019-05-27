@@ -35,6 +35,11 @@ else()
   string(REPLACE "/MD" "/MT" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
 
+if(${ENABLE_COVERAGE})
+  add_compile_options(--coverage -O0)
+  link_libraries(--coverage)
+endif()
+
 add_subdirectory(externals/googletest)
 add_subdirectory(externals/assimp)
 add_subdirectory(math/)
