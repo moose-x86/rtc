@@ -3,6 +3,8 @@ project(rtc CXX)
 
 enable_testing()
 
+include(CTest)
+
 set(GMOCK_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/externals/googlemock/googlemock/include")
 set(GTEST_INCLUDE_DIR "${CMAKE_SOURCE_DIR}/externals/googletest/googletest/include")
 
