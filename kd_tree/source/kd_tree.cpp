@@ -54,7 +54,7 @@ auto kd_tree::cend(const rtc::math_ray&) const noexcept -> kd_tree::const_iterat
 
 kd_tree::~kd_tree() = default;
 kd_tree::kd_tree(kd_tree&&) noexcept = default;
-kd_tree& kd_tree::operator=(kd_tree&&) noexcept = default;
+auto kd_tree::operator=(kd_tree&&) noexcept -> kd_tree& = default;
 
 void kd_tree::build_tree(std::unique_ptr<tree_node>& node,
                             rtc::bounding_box node_bbox,
@@ -107,9 +107,9 @@ auto kd_tree::compute_node_split_paramters(
 {
   constexpr int isect_cost{80};
   constexpr int traversal_cost{1};
-  constexpr rtc_float empty_bonus{0.5f};
+  constexpr rtc_float empty_bonus{0.5F};
   const auto node_diagonal{node_bbox.diagonal()};
-  const rtc_float invTotalSA{1.0f/node_bbox.surface_area()};
+  const rtc_float invTotalSA{1.0F/node_bbox.surface_area()};
   const rtc_float old_cost{isect_cost * static_cast<rtc_float>(tr.size())};
 
   int retries{0};
