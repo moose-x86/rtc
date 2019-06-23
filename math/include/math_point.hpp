@@ -7,6 +7,7 @@
 #include <tuple>
 #include "float_compare.hpp"
 #include "math_axis.hpp"
+#include <array>
 
 namespace rtc
 {
