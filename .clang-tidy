@@ -1,11 +1,71 @@
 ---
-Checks:          'clang-diagnostic-*,clang-analyzer-*,performance*,modernize*,hicpp*'
+Checks:          'clang-diagnostic-*,clang-analyzer-*,performance*,modernize*,hicpp*,bugprone*,clang-analyzer*'
 WarningsAsErrors: ''
 HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
 FormatStyle:     none
 User:            przemo
 CheckOptions:    
+  - key:             bugprone-argument-comment.CommentBoolLiterals
+    value:           '0'
+  - key:             bugprone-argument-comment.CommentCharacterLiterals
+    value:           '0'
+  - key:             bugprone-argument-comment.CommentFloatLiterals
+    value:           '0'
+  - key:             bugprone-argument-comment.CommentIntegerLiterals
+    value:           '0'
+  - key:             bugprone-argument-comment.CommentNullPtrs
+    value:           '0'
+  - key:             bugprone-argument-comment.CommentStringLiterals
+    value:           '0'
+  - key:             bugprone-argument-comment.CommentUserDefinedLiterals
+    value:           '0'
+  - key:             bugprone-argument-comment.StrictMode
+    value:           '0'
+  - key:             bugprone-assert-side-effect.AssertMacros
+    value:           assert
+  - key:             bugprone-assert-side-effect.CheckFunctionCalls
+    value:           '0'
+  - key:             bugprone-dangling-handle.HandleClasses
+    value:           'std::basic_string_view;std::experimental::basic_string_view'
+  - key:             bugprone-exception-escape.FunctionsThatShouldNotThrow
+    value:           ''
+  - key:             bugprone-exception-escape.IgnoredExceptions
+    value:           ''
+  - key:             bugprone-misplaced-widening-cast.CheckImplicitCasts
+    value:           '0'
+  - key:             bugprone-sizeof-expression.WarnOnSizeOfCompareToConstant
+    value:           '1'
+  - key:             bugprone-sizeof-expression.WarnOnSizeOfConstant
+    value:           '1'
+  - key:             bugprone-sizeof-expression.WarnOnSizeOfIntegerExpression
+    value:           '0'
+  - key:             bugprone-sizeof-expression.WarnOnSizeOfThis
+    value:           '1'
+  - key:             bugprone-string-constructor.LargeLengthThreshold
+    value:           '8388608'
+  - key:             bugprone-string-constructor.WarnOnLargeLength
+    value:           '1'
+  - key:             bugprone-suspicious-enum-usage.StrictMode
+    value:           '0'
+  - key:             bugprone-suspicious-missing-comma.MaxConcatenatedTokens
+    value:           '5'
+  - key:             bugprone-suspicious-missing-comma.RatioThreshold
+    value:           '0.200000'
+  - key:             bugprone-suspicious-missing-comma.SizeThreshold
+    value:           '5'
+  - key:             bugprone-suspicious-string-compare.StringCompareLikeFunctions
+    value:           ''
+  - key:             bugprone-suspicious-string-compare.WarnOnImplicitComparison
+    value:           '1'
+  - key:             bugprone-suspicious-string-compare.WarnOnLogicalNotComparison
+    value:           '0'
+  - key:             bugprone-too-small-loop-variable.MagnitudeBitsUpperLimit
+    value:           '16'
+  - key:             bugprone-unhandled-self-assignment.WarnOnlyIfThisHasSuspiciousField
+    value:           '1'
+  - key:             bugprone-unused-return-value.CheckedFunctions
+    value:           '::std::async;::std::launder;::std::remove;::std::remove_if;::std::unique;::std::unique_ptr::release;::std::basic_string::empty;::std::vector::empty'
   - key:             cert-dcl16-c.NewSuffixes
     value:           'L;LL;LU;LLU'
   - key:             cert-oop54-cpp.WarnOnlyIfThisHasSuspiciousField
