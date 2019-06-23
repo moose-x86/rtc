@@ -19,14 +19,15 @@ template<typename rt_algorithm = backward_al<::rtc::kdtree_rt, distributed_ray_t
 class graphics_view
 {
 public:
-  graphics_view(std::shared_ptr<const rtc::scene_model>);
+  explicit graphics_view(std::shared_ptr<const rtc::scene_model>);
 
   graphics_view(graphics_view&&) noexcept = default;
   graphics_view(const graphics_view&) = delete;
-  graphics_view& operator=(graphics_view&&) noexcept = default;
-  graphics_view& operator=(const graphics_view&) = delete;
+  auto operator=(graphics_view&&) noexcept -> graphics_view& = default;
+  auto operator=(const graphics_view&) -> graphics_view& = delete;
 
   rtc_hot auto bitmap() -> rtc::bitmap;
+  ~graphics_view() = default;
 
 private:
   using rt_service = ::rtc::rt_service<typename rt_algorithm::rt_paramters>;

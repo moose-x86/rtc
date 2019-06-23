@@ -15,8 +15,7 @@ namespace rtc
 class log
 {
 public:
-  log() noexcept
-  {}
+  log() noexcept = default;
 
   log(const std::string& file, const std::uint32_t line) : log()
   {
@@ -33,7 +32,7 @@ public:
     system_clock::time_point now{system_clock::now()};
     const std::time_t here{system_clock::to_time_t(now)};
 
-    *syslog 
+    *syslog
             // << "["
             // << std::put_time(std::localtime(std::addressof(here)), "%H:%M:%S")
             // << ":"
@@ -55,7 +54,7 @@ public:
   catch(...)
   {}
 
-  std::ostream& stream() noexcept
+  auto stream() noexcept -> std::ostream&
   {
     return *syslog;
   }
@@ -70,7 +69,7 @@ private:
 struct null_stream final {};
 
 template<typename T>
-inline null_stream operator<<(null_stream, const T&) noexcept { return {}; }
+inline auto operator<<(null_stream, const T&) noexcept -> null_stream { return {}; }
 
 }
 

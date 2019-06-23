@@ -22,7 +22,7 @@ public:
              const rtc::math_point& p3) noexcept : math_plane{cross(p1 - p2, p3 - p2), p2}
   {}
 
-  rtc_pure rtc_inline rtc_float intersection_value(const rtc::math_ray& ray) const noexcept
+  rtc_pure rtc_inline [[nodiscard]] auto intersection_value(const rtc::math_ray& ray) const noexcept
   {
     const auto& u = ray.direction();
 	const auto d{ u.x() * e[0] + u.y() * e[1] + u.z() * e[2] };
@@ -41,7 +41,7 @@ public:
   inline static constexpr const rtc_float infinity{std::numeric_limits<rtc_float>::max()};
 
 private:
-  rtc_float e[4];
+  std::array<rtc_float, 4> e;
 };
 
 }

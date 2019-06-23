@@ -6,13 +6,13 @@
 namespace rtc
 {
 
-const kd_tree::value_type& kd_tree::const_iterator::operator*() const noexcept
+auto kd_tree::const_iterator::operator*() const noexcept -> const value_type&
 {
   assert(current_node);
   return *current_node->triangles;
 }
 
-bool kd_tree::const_iterator::operator==(const kd_tree::const_iterator& i) const noexcept
+auto kd_tree::const_iterator::operator==(const kd_tree::const_iterator& i) const noexcept -> bool
 {
   return current_node == i.current_node;
 }
@@ -25,12 +25,12 @@ bool kd_tree::const_iterator::operator!=(const kd_tree::const_iterator& i) const
 kd_tree::const_iterator::const_iterator(const rtc::math_ray& r, node_t node)
 {
   nodes.push(node);
-  ray = { 1.0f / r.direction(), r.origin() };
+  ray = { 1.0F / r.direction(), r.origin() };
 
   (*this).operator++();
 }
 
-kd_tree::const_iterator& kd_tree::const_iterator::operator++() noexcept
+auto kd_tree::const_iterator::operator++() noexcept -> const_iterator&
 {
   if(rtc_unlikely(nodes.empty()))
     return current_node = nullptr, *this;
@@ -74,8 +74,8 @@ kd_tree::const_iterator& kd_tree::const_iterator::operator++() noexcept
   return *this;
 }
 
-std::tuple<kd_tree::tree_node*, kd_tree::tree_node*, rtc_float>
-kd_tree::const_iterator::get_children_and_split_value(const tree_node* const node, const math_ray& r) const noexcept
+auto
+kd_tree::const_iterator::get_children_and_split_value(const tree_node* const node, const math_ray& r) const noexcept -> std::tuple<tree_node*, tree_node*, rtc_float>
 {
   const auto axis = node->axis.split;
   const auto tsplit = (node->axis.value - r.origin().axis(axis)) * r.direction().axis(axis);
@@ -92,7 +92,7 @@ kd_tree::const_iterator::get_children_and_split_value(const tree_node* const nod
   }
 }
 
-kd_tree::const_iterator& kd_tree::const_iterator::triangle_hit_value(const rtc_float t) noexcept
+auto kd_tree::const_iterator::triangle_hit_value(const rtc_float t) noexcept -> const_iterator&
 {
   return nearest_intersect_ray_value = t, *this;
 }

@@ -20,21 +20,21 @@ public:
   constexpr math_point(rtc_float x, rtc_float y, rtc_float z) noexcept: e{x, y, z}
   {}
 
-  constexpr auto begin() const noexcept { return std::cbegin(e); }
-  constexpr auto end() const noexcept { return std::cend(e); }
+  [[nodiscard]] constexpr auto begin() const noexcept { return std::cbegin(e); }
+  [[nodiscard]] constexpr auto end() const noexcept { return std::cend(e); }
 
   constexpr auto& x() noexcept { return e[0]; }
   constexpr auto& y() noexcept { return e[1]; }
   constexpr auto& z() noexcept { return e[2]; }
-  constexpr auto x() const noexcept { return e[0]; }
-  constexpr auto y() const noexcept { return e[1]; }
-  constexpr auto z() const noexcept { return e[2]; }
+  [[nodiscard]] constexpr auto x() const noexcept { return e[0]; }
+  [[nodiscard]] constexpr auto y() const noexcept { return e[1]; }
+  [[nodiscard]] constexpr auto z() const noexcept { return e[2]; }
 
-  constexpr auto& axis(rtc::axis v) noexcept { return e[int(v)]; }
-  constexpr auto axis(rtc::axis v) const noexcept { return e[int(v)]; }
+  constexpr decltype(auto) axis(rtc::axis v) noexcept { return e[int(v)]; }
+  [[nodiscard]] constexpr auto axis(rtc::axis v) const noexcept { return e[int(v)]; }
 
 private:
-  value_type e[3]{};
+  std::array<value_type, 3> e{};
 };
 
 inline bool operator==(const math_point& v1, const math_point& v2) noexcept

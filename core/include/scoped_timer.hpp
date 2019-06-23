@@ -20,6 +20,11 @@ public:
     rtc::log(fn_name, ln).stream() << "Timer duration of scope was " << fs.count() << " [sec]";
   } catch(...){}
 
+  auto operator=(scoped_timer&&) -> scoped_timer& = delete;
+  auto operator=(const scoped_timer&) -> scoped_timer& = delete;
+  scoped_timer(const scoped_timer&) = delete;
+  scoped_timer(scoped_timer&&) = delete;
+
 private:
   std::uint32_t ln{};
   std::string fn_name{};
