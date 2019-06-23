@@ -102,24 +102,24 @@ public:
   using base::const_reverse_iterator;
 
   void load_from(const std::string&);
-  std::size_t width() const noexcept;
+  [[nodiscard]] auto width() const noexcept -> std::size_t;
   [[nodiscard]] auto height() const noexcept -> std::size_t;
   void save(const std::string&) const;
   bool assign(const rtc::pixel&) noexcept;
   color_rgb& at(const std::uint16_t, const std::uint16_t);
-  bitmap& resize(const std::uint16_t, const std::uint16_t);
-  color_rgb& operator()(const std::uint16_t, const std::uint16_t);
-  const color_rgb& at(const std::uint16_t, const std::uint16_t) const;
+  auto resize(const std::uint16_t, const std::uint16_t) -> bitmap&;
+  auto operator()(const std::uint16_t, const std::uint16_t) -> color_rgb&;
+  [[nodiscard]] const color_rgb& at(const std::uint16_t, const std::uint16_t) const;
   const color_rgb& operator()(const std::uint16_t, const std::uint16_t) const;
-  bool assign(const std::uint16_t, const std::uint16_t, const color_rgb&) noexcept;
+  auto assign(const std::uint16_t, const std::uint16_t, const color_rgb&) noexcept -> bool;
 
-  bitmap& revert() noexcept;
+  auto revert() noexcept -> bitmap&;
   bitmap operator!() const;
-  bitmap& swap(bitmap& bmp) noexcept(noexcept(std::declval<base>().swap(std::declval<base&>())));
-  std::size_t pixel_amount() const noexcept;
+  auto swap(bitmap& bmp) noexcept(noexcept(std::declval<base>().swap(std::declval<base&>()))) -> bitmap&;
+  auto pixel_amount() const noexcept -> std::size_t;
   bitmap& clear(const color_rgb& = {}) noexcept;
   bitmap& insert(const std::uint16_t, const std::uint16_t, const bitmap&);
-  bitmap trim(const std::uint16_t, const std::uint16_t, const std::uint16_t, const std::uint16_t) const;
+  [[nodiscard]] auto trim(const std::uint16_t, const std::uint16_t, const std::uint16_t, const std::uint16_t) const -> bitmap;
 
   bitmap& draw(const std::function<rtc::color_rgb(std::uint16_t, std::uint16_t)>&) noexcept;
 

@@ -25,14 +25,14 @@ class kd_tree
 public:
   class const_iterator;
 
-  rtc_hot kd_tree(const rtc::scene_model& sm);
+  rtc_hot explicit kd_tree(const rtc::scene_model& sm);
   kd_tree(kd_tree&&) noexcept;
-  kd_tree& operator=(kd_tree&&) noexcept;
+  auto operator=(kd_tree&&) noexcept -> kd_tree&;
 
   ~kd_tree();
 
-  const_iterator cbegin(const rtc::math_ray&) const noexcept;
-  const_iterator cend(const rtc::math_ray&) const noexcept;
+  [[nodiscard]] auto cbegin(const rtc::math_ray&) const noexcept -> const_iterator;
+  [[nodiscard]] auto cend(const rtc::math_ray&) const noexcept -> const_iterator;
 
 private:
   ray_box_intersection_test bbox;
@@ -46,17 +46,17 @@ private:
                           const std::uint32_t depth,
                           std::uint32_t bad_refines = 0);
 
-  rtc_hot std::tuple<int, int, rtc_float, rtc_float> compute_node_split_paramters(
-                                        edge_buffer_array_t& edges,
-                                        const std::vector<std::uint32_t>& tr,
-                                        const rtc::bounding_box& node_bbox,
-                                        const std::vector<rtc::bounding_box>& primitive_bboxes);
+  rtc_hot auto compute_node_split_paramters(
+                          edge_buffer_array_t& edges,
+                          const std::vector<std::uint32_t>& tr,
+                          const rtc::bounding_box& node_bbox,
+                          const std::vector<rtc::bounding_box>& primitive_bboxes) -> std::tuple<int, int, rtc_float, rtc_float>;
 
-  rtc_hot vector_tuple<std::uint32_t, std::uint32_t> split_triangles(
-                                                      std::vector<std::uint32_t>&&,
-                                                      const edge_buffer_array_t& edges,
-                                                      const std::uint32_t best_axis,
-                                                      const std::uint32_t best_offset);
+  rtc_hot auto split_triangles(
+              std::vector<std::uint32_t>&&,
+              const edge_buffer_array_t& edges,
+              const std::uint32_t best_axis,
+              const std::uint32_t best_offset) -> vector_tuple<std::uint32_t, std::uint32_t>;
 
 };
 

@@ -18,7 +18,7 @@ kd_tree::kd_tree(const rtc::scene_model& ss) : bbox{ss.points}
   SCOPE_TIME_COUNTER;
   const auto& p = ss.points;
   const auto& t = ss.triangles;
-  const std::uint32_t max_depth = 1.3f * std::log2(t.size()) + 8;
+  const std::uint32_t max_depth = 1.3F * std::log2(t.size()) + 8;
   auto make_bbox = [](auto& p, auto& tr) noexcept {
     return rtc::bounding_box{p[tr.vertex_a()], p[tr.vertex_b()], p[tr.vertex_c()]};
   };
@@ -36,7 +36,7 @@ kd_tree::kd_tree(const rtc::scene_model& ss) : bbox{ss.points}
   build_tree(root, node_bbox, std::move(v), primitive_bboxes, edge_buffer, max_depth);
 }
 
-kd_tree::const_iterator kd_tree::cbegin(const rtc::math_ray& ray) const noexcept
+auto kd_tree::cbegin(const rtc::math_ray& ray) const noexcept -> kd_tree::const_iterator
 {
   if(auto range = bbox.intersection_values_for(ray))
   {
@@ -47,7 +47,7 @@ kd_tree::const_iterator kd_tree::cbegin(const rtc::math_ray& ray) const noexcept
   return const_iterator{};
 }
 
-kd_tree::const_iterator kd_tree::cend(const rtc::math_ray&) const noexcept
+auto kd_tree::cend(const rtc::math_ray&) const noexcept -> kd_tree::const_iterator
 {
   return const_iterator{};
 }
