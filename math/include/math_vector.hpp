@@ -21,7 +21,7 @@ public:
   constexpr math_vector(rtc_float px, rtc_float py, rtc_float pz) noexcept : e{px, py, pz}
   {}
 
-  constexpr math_vector(const rtc_float v[3]) noexcept : math_vector(v[0], v[1], v[2])
+  constexpr explicit math_vector(const rtc_float v[3]) noexcept : math_vector(v[0], v[1], v[2])
   {}
 
   constexpr explicit math_vector(const math_point& p) noexcept : e{p.x(), p.y(), p.z()} {}

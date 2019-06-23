@@ -25,7 +25,7 @@ struct color_rgb
             std::uint8_t g,
             std::uint8_t b) noexcept : red{r}, green{g}, blue{b} {}
 
-  auto revert() const noexcept
+  [[nodiscard]] auto revert() const noexcept
   {
     color_rgb c;
     c.red   = (std::numeric_limits<std::uint8_t>::max() - red);
@@ -34,7 +34,7 @@ struct color_rgb
     return c;
   }
 
-  bool operator==(const color_rgb& p) const noexcept
+  auto operator==(const color_rgb& p) const noexcept -> bool
   {
     return p.red == red && p.green == green && p.blue == blue;
   }
@@ -103,7 +103,7 @@ public:
 
   void load_from(const std::string&);
   std::size_t width() const noexcept;
-  std::size_t height() const noexcept;
+  [[nodiscard]] auto height() const noexcept -> std::size_t;
   void save(const std::string&) const;
   bool assign(const rtc::pixel&) noexcept;
   color_rgb& at(const std::uint16_t, const std::uint16_t);

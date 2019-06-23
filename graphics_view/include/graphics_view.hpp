@@ -21,9 +21,9 @@ class graphics_view
 public:
   graphics_view(std::shared_ptr<const rtc::scene_model>);
 
-  graphics_view(graphics_view&&) = default;
+  graphics_view(graphics_view&&) noexcept = default;
   graphics_view(const graphics_view&) = delete;
-  graphics_view& operator=(graphics_view&&) = default;
+  graphics_view& operator=(graphics_view&&) noexcept = default;
   graphics_view& operator=(const graphics_view&) = delete;
 
   rtc_hot auto bitmap() -> rtc::bitmap;
