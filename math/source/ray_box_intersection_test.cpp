@@ -8,7 +8,7 @@ ray_box_intersection_test::ray_box_intersection_test(const std::vector<rtc::math
 
 auto ray_box_intersection_test::intersection_values_for(const rtc::math_ray& ray) const noexcept -> ray_intersection_tuple
 {
-  const auto invRayDir = 1.f / ray.direction();
+  const auto invRayDir = 1.F / ray.direction();
   rtc_float t_in = 0, t_out = std::numeric_limits<rtc_float>::max();
 
   for(const auto x : {axis::x, axis::y, axis::z})

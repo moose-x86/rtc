@@ -5,7 +5,7 @@ HeaderFilterRegex: ''
 AnalyzeTemporaryDtors: false
 FormatStyle:     none
 User:            przemo
-CheckOptions:    
+CheckOptions:
   - key:             bugprone-argument-comment.CommentBoolLiterals
     value:           '0'
   - key:             bugprone-argument-comment.CommentCharacterLiterals

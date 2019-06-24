@@ -10,13 +10,13 @@ class point_in_triangle_test
 {
 public:
   point_in_triangle_test(const math_point&, const math_point&, const math_point&) noexcept;
-  bool triangle_contains(const math_point& ) const noexcept;
+  auto triangle_contains(const math_point& ) const noexcept -> bool;
 
 private:
-  std::tuple<rtc_float, rtc_float> get_projected_point(const rtc::math_point&) const noexcept;
+  [[nodiscard]] std::tuple<rtc_float, rtc_float> get_projected_point(const rtc::math_point&) const noexcept;
   rtc_hot void compute_all_needed_factors(const math_point&, const math_point&, const math_point&) noexcept;
 
-  rtc_float a[6];
+  std::array<rtc_float, 6> a{};
   rtc::axis biggest_axis;
 };
 
