@@ -11,7 +11,7 @@ namespace rtc
 class bounding_box
 {
  public:
-  bounding_box(const std::vector<math_point>&) noexcept;
+  explicit bounding_box(const std::vector<math_point>&) noexcept;
   bounding_box(std::initializer_list<math_point>) noexcept;
 
   auto& min_boundary() const noexcept { return pmin; }
@@ -30,11 +30,9 @@ class bounding_box
   rtc::math_point pmin, pmax;
 };
 
-inline auto operator<<(std::ostream& ss, const bounding_box& bb) noexcept
-    -> std::ostream&
+inline auto operator<<(std::ostream& ss, const bounding_box& bb) noexcept -> std::ostream&
 {
-  return ss << "[ " << bb.min_boundary() << " , " << bb.max_boundary()
-            << " ]bb";
+  return ss << "[ " << bb.min_boundary() << " , " << bb.max_boundary() << " ]bb";
 }
 
 }  // namespace rtc

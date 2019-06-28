@@ -5,30 +5,40 @@
 
 namespace rtc
 {
-
 class math_ray
 {
-public:
+ public:
   constexpr math_ray() noexcept = default;
   constexpr math_ray(const rtc::math_vector& direction,
-                     const rtc::math_point& start) noexcept : u{direction}, p{start}{}
+                     const rtc::math_point& start) noexcept
+      : u{direction}, p{start}
+  {
+  }
 
-  constexpr rtc::math_point operator[](const rtc_float t) const noexcept
+  constexpr auto operator[](const rtc_float t) const noexcept -> rtc::math_point
   {
     return u * t + p;
   }
 
-  constexpr const rtc::math_point & origin() const noexcept { return p; }
-  constexpr const rtc::math_vector& direction() const noexcept { return u; }
+  [[nodiscard]] constexpr auto origin() const noexcept -> const rtc::math_point&
+  {
+    return p;
+  }
+  [[nodiscard]] constexpr auto direction() const noexcept
+      -> const rtc::math_vector&
+  {
+    return u;
+  }
 
-private:
+ private:
   rtc::math_vector u;
   rtc::math_point p;
 };
 
-inline std::ostream& operator<<(std::ostream& ss, const math_ray& ray) noexcept
+inline auto operator<<(std::ostream& ss, const math_ray& ray) noexcept
+    -> std::ostream&
 {
   return ss << "[ " << ray.direction() << ", " << ray.origin() << " ]r";
 }
 
-}
+}  // namespace rtc

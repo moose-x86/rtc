@@ -10,7 +10,7 @@ class point_in_triangle_test
 {
 public:
   point_in_triangle_test(const math_point&, const math_point&, const math_point&) noexcept;
-  auto triangle_contains(const math_point& ) const noexcept -> bool;
+  [[nodiscard]] auto triangle_contains(const math_point& ) const noexcept -> bool;
 
 private:
   [[nodiscard]] std::tuple<rtc_float, rtc_float> get_projected_point(const rtc::math_point&) const noexcept;
