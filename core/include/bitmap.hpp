@@ -1,5 +1,6 @@
 #pragma once
 
+#include <boost/logic/tribool.hpp>
 #include <cstdint>
 #include <cstdlib>
 #include <cstring>
@@ -11,7 +12,6 @@
 #include <stdexcept>
 #include <tuple>
 #include <vector>
-#include <boost/logic/tribool.hpp>
 
 #include "utility.hpp"
 
@@ -115,9 +115,8 @@ class bitmap : std::vector<rtc::pixel>
   auto operator()(const std::uint16_t, const std::uint16_t) const -> const color_rgb&;
   auto assign(const std::uint16_t, const std::uint16_t, const color_rgb&) noexcept -> bool;
 
-  auto compare(const bitmap&,
-               const std::function<bool(const rtc::color_rgb&, const rtc::color_rgb&)>&)
-               -> std::optional<rtc::bitmap>;
+  auto compare(const bitmap&, const std::function<bool(const rtc::color_rgb&, const rtc::color_rgb&)>&)
+      -> boost::tribool;
 
   auto revert() noexcept -> bitmap&;
   auto operator!() const -> bitmap;

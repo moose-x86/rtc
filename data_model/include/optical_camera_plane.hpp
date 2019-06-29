@@ -9,8 +9,8 @@ namespace rtc
 struct optical_camera_plane
 {
 public:
-  optical_camera_plane( const rtc::camera&) noexcept;
-  rtc::math_ray emit_ray(std::uint32_t, std::uint32_t) const noexcept;
+  explicit optical_camera_plane(const rtc::camera&) noexcept;
+  [[nodiscard]] auto emit_ray(std::uint32_t, std::uint32_t) const noexcept -> rtc::math_ray;
 
 private:
   rtc::math_point corner;

@@ -39,8 +39,8 @@ class rt_service
 
   rt_service(rt_service&&) noexcept = default;
   rt_service(const rt_service&) = delete;
-  rt_service& operator=(rt_service&&) noexcept = default;
-  rt_service& operator=(const rt_service&) = delete;
+  auto operator=(rt_service&&) noexcept -> rt_service& = default;
+  auto operator=(const rt_service&) -> rt_service& = delete;
 
   [[nodiscard]] rtc_hot auto trace_ray(const rtc::math_ray&) -> trace_result;
   auto thread_number() const noexcept
@@ -73,14 +73,15 @@ rt_service<T>::rt_service()
     control->threads.create_thread([i, p = control.get()]() { thread_execution_loop(i, *p); });
 
   for (auto i{0}; i < queue_capacity; control->free_slots.push(i++))
-    {
-    }
+  {
+  }
 }
 
 template <typename T>
 rt_service<T>::rt_service(std::shared_ptr<const rtc::scene_model> sc) : rt_service<T>()
 {
-  if (rtc_unlikely(!sc)) throw std::runtime_error{"Pointer to scene_model is null."};
+  if (rtc_unlikely(!sc))
+    throw std::runtime_error{"Pointer to scene_model is null."};
 
   storage s{*sc};
   control->rt_search = std::make_unique<ray_tracer>(std::move(s), std::move(sc));
@@ -90,16 +91,17 @@ template <typename T>
 rt_service<T>::~rt_service()
 {
   if (control)
-    {
-      control->threads.interrupt_all();
-      control->threads.join_all();
-    }
+  {
+    control->threads.interrupt_all();
+    control->threads.join_all();
+  }
 }
 
 template <typename T>
 auto rt_service<T>::trace_ray(const rtc::math_ray& ray) -> trace_result
 {
-  if (rtc_unlikely(!control)) throw std::runtime_error{"ray_trace is not able to trace, probably it was moved from"};
+  if (rtc_unlikely(!control))
+    throw std::runtime_error{"ray_trace is not able to trace, probably it was moved from"};
 
   std::promise<rtc::intersection> p{};
   auto result{p.get_future()};
@@ -108,14 +110,14 @@ auto rt_service<T>::trace_ray(const rtc::math_ray& ray) -> trace_result
     control->promise_slots[free_slot_index] = std::move(p);
 
     while (!control->used_slots.push(free_slot_index))
-      {
-      }
+    {
+    }
   };
 
   //  DEBUG << "Adding to queue";
   while (!control->free_slots.consume_one(thread_fn))
-    {
-    }
+  {
+  }
 
   // DEBUG << "Added to queue";
   return result;
@@ -138,38 +140,39 @@ void rt_service<T>::thread_execution_loop(std::size_t thread_id, control_block& 
 
     promise.set_value(std::move(intersection));
     while (!cb.free_slots.push(slot_index))
-      {
-      }
+    {
+    }
   };
 
   try
-    {
-      SCOPE_TIME_COUNTER;
-      DEBUG << "Thread[" << thread_id << "] was started!!";
+  {
+    SCOPE_TIME_COUNTER;
+    DEBUG << "Thread[" << thread_id << "] was started!!";
 
-      while (boost::this_thread::interruption_point(), true)
-        {
-          if (!cb.used_slots.consume_one(thread_fn))
-            {
-              // DEBUG << "Thread[" << thread_id << "] no work!!";
-              ++stols;
-              if (cb.used_slots.empty()) random_sleep();
-            }
-          else
-            {
-              // DEBUG << "Thread[" << thread_id << "] work done!!";
-              ++work;
-            }
-          ++total;
-        }
-    }
-  catch (const boost::thread_interrupted&)
+    while (boost::this_thread::interruption_point(), true)
     {
-      RELEASE << "Thread[" << thread_id << "] was interrupted!!"
-              << " number of work: " << work << " total num: " << total << " stols num: " << stols
-              << " work load: " << (rtc_float)work / (rtc_float)total
-              << " work stols: " << (rtc_float)stols / (rtc_float)total;
+      if (!cb.used_slots.consume_one(thread_fn))
+      {
+        // DEBUG << "Thread[" << thread_id << "] no work!!";
+        ++stols;
+        if (cb.used_slots.empty())
+          random_sleep();
+      }
+      else
+      {
+        // DEBUG << "Thread[" << thread_id << "] work done!!";
+        ++work;
+      }
+      ++total;
     }
+  }
+  catch (const boost::thread_interrupted&)
+  {
+    RELEASE << "Thread[" << thread_id << "] was interrupted!!"
+            << " number of work: " << work << " total num: " << total << " stols num: " << stols
+            << " work load: " << (rtc_float)work / (rtc_float)total
+            << " work stols: " << (rtc_float)stols / (rtc_float)total;
+  }
 }
 
 }  // namespace rtc

@@ -3,10 +3,9 @@
 #include <algorithm>
 #include <cassert>
 #include <cstring>
-#include <optional>
 #include <functional>
+#include <optional>
 #include <tuple>
-#include <boost/logic/tribool.hpp>
 
 namespace rtc
 {
@@ -14,39 +13,40 @@ bitmap::bitmap() noexcept : header_data{} { reset(); }
 
 bitmap::bitmap(const std::string& path) : bitmap()
 {
-  if (!path.empty()) load_from(path);
+  if (!path.empty())
+    load_from(path);
 }
 
 bitmap::bitmap(const std::uint16_t x, const std::uint16_t y) : bitmap() { resize(x, y); }
 
-auto bitmap::compare(const bitmap& bmp,
-                     const std::function<bool(const rtc::color_rgb&, const rtc::color_rgb&)>& cmp)
-                     -> std::tuple<boost::tribool, rtc::bitmap>
+auto bitmap::compare(const bitmap& bmp, const std::function<bool(const rtc::color_rgb&, const rtc::color_rgb&)>& cmp)
+    -> boost::tribool
 {
-    if( not( width() == bmp.width() and height() == bmp.height() ))
-        return std::nullopt;
+  if (not(width() == bmp.width() and height() == bmp.height()))
+    return boost::indeterminate;
 
-    rtc::bitmap result{static_cast<std::uint16_t>(width()), static_cast<std::uint16_t>(height())};
+  rtc::bitmap result{static_cast<std::uint16_t>(width()), static_cast<std::uint16_t>(height())};
 
-    for(int i{}; i < width(); ++i)
+  for (int i{}; i < width(); ++i)
+  {
+    for (int j{}; j < height(); ++j)
     {
-        for(int j{}; j < height(); ++j)
-        {
-            if(cmp((*this)(i, j), bmp(i, j)) == false)
-            {
-                result(i, j) = (*this)(i, j);
-            }
-        }
+      if (cmp((*this)(i, j), bmp(i, j)) == false)
+      {
+        return false;
+      }
     }
+  }
 
-    return result;
+  return true;
 }
 
 void bitmap::load_from(const std::string& path)
 {
   std::ifstream out_file(path.c_str(), std::ios::binary);
 
-  if (!out_file.is_open() || !out_file.good()) throw std::runtime_error{"bitmap::load: file is not open"};
+  if (!out_file.is_open() || !out_file.good())
+    throw std::runtime_error{"bitmap::load: file is not open"};
 
   out_file.read(reinterpret_cast<char*>(&header_data.bfType), sizeof(header_data.bfType));
   out_file.read(reinterpret_cast<char*>(&header_data.bfSize), sizeof(header_data.bfSize));
@@ -73,27 +73,29 @@ void bitmap::load_from(const std::string& path)
   color_rgb l_tmp{};
 
   for (std::uint32_t j = 0; j < height(); j++)
+  {
+    for (std::uint32_t i = 0; i < width(); i++)
     {
-      for (std::uint32_t i = 0; i < width(); i++)
-        {
-          out_file.read(reinterpret_cast<char*>(&l_tmp.blue), sizeof(l_tmp.blue));
-          out_file.read(reinterpret_cast<char*>(&l_tmp.green), sizeof(l_tmp.green));
-          out_file.read(reinterpret_cast<char*>(&l_tmp.red), sizeof(l_tmp.red));
-          operator()(i, height() - j - 1) = l_tmp;
-        }
-
-      for (int a = 0; a < align; a++)
-        out_file.read(reinterpret_cast<char*>(std::addressof(l_tmp.blue)), sizeof(l_tmp.blue));
+      out_file.read(reinterpret_cast<char*>(&l_tmp.blue), sizeof(l_tmp.blue));
+      out_file.read(reinterpret_cast<char*>(&l_tmp.green), sizeof(l_tmp.green));
+      out_file.read(reinterpret_cast<char*>(&l_tmp.red), sizeof(l_tmp.red));
+      operator()(i, height() - j - 1) = l_tmp;
     }
+
+    for (int a = 0; a < align; a++)
+      out_file.read(reinterpret_cast<char*>(std::addressof(l_tmp.blue)), sizeof(l_tmp.blue));
+  }
 }
 
 void bitmap::save(const std::string& path) const
 {
-  if (base::empty()) throw std::runtime_error("bitmap is empty");
+  if (base::empty())
+    throw std::runtime_error("bitmap is empty");
 
   std::ofstream out_file(path.c_str(), std::ios::binary);
 
-  if (!out_file.is_open() || !out_file.good()) throw std::runtime_error("bitmap::save: file is not open");
+  if (!out_file.is_open() || !out_file.good())
+    throw std::runtime_error("bitmap::save: file is not open");
 
   out_file.write(reinterpret_cast<const char*>(&header_data.bfType), sizeof(header_data.bfType));
   out_file.write(reinterpret_cast<const char*>(&header_data.bfSize), sizeof(header_data.bfSize));
@@ -120,21 +122,21 @@ void bitmap::save(const std::string& path) const
   out_file.seekp(header_data.bfOffBits, std::ios::beg);
 
   for (std::uint32_t j = 0; j < height(); j++)
+  {
+    for (std::uint32_t i = 0; i < width(); i++)
     {
-      for (std::uint32_t i = 0; i < width(); i++)
-        {
-          out_file.write((char*)&(*this)(i, height() - j - 1).blue, sizeof(std::uint8_t));
-          out_file.write((char*)&(*this)(i, height() - j - 1).green, sizeof(std::uint8_t));
-          out_file.write((char*)&(*this)(i, height() - j - 1).red, sizeof(std::uint8_t));
-        }
-
-      for (std::uint32_t k = 0; k < align; k++) out_file.write((char*)std::addressof(l_tmp), sizeof(l_tmp));
+      out_file.write((char*)&(*this)(i, height() - j - 1).blue, sizeof(std::uint8_t));
+      out_file.write((char*)&(*this)(i, height() - j - 1).green, sizeof(std::uint8_t));
+      out_file.write((char*)&(*this)(i, height() - j - 1).red, sizeof(std::uint8_t));
     }
+
+    for (std::uint32_t k = 0; k < align; k++) out_file.write((char*)std::addressof(l_tmp), sizeof(l_tmp));
+  }
 }
 
-std::size_t bitmap::width() const noexcept { return header_data.biWidth; }
+auto bitmap::width() const noexcept -> std::size_t { return header_data.biWidth; }
 
-std::size_t bitmap::height() const noexcept { return header_data.biHeight; }
+auto bitmap::height() const noexcept -> std::size_t { return header_data.biHeight; }
 
 bool bitmap::assign(const std::uint16_t x, const std::uint16_t y, const color_rgb& color) noexcept
 {
@@ -143,7 +145,8 @@ bool bitmap::assign(const std::uint16_t x, const std::uint16_t y, const color_rg
 
 bool bitmap::assign(const rtc::pixel& p) noexcept
 {
-  if (in_range(p.x, p.y)) operator()(p.x, p.y) = p.color;
+  if (in_range(p.x, p.y))
+    operator()(p.x, p.y) = p.color;
 
   return in_range(p.x, p.y);
 }
@@ -177,7 +180,7 @@ auto bitmap::operator()(const std::uint16_t x, const std::uint16_t y) -> color_r
 #endif
 }
 
-const color_rgb& bitmap::operator()(const std::uint16_t x, const std::uint16_t y) const
+auto bitmap::operator()(const std::uint16_t x, const std::uint16_t y) const -> const color_rgb&
 {
   assert(in_range(x, y));
 #ifndef NDEBUG
@@ -187,30 +190,32 @@ const color_rgb& bitmap::operator()(const std::uint16_t x, const std::uint16_t y
 #endif
 }
 
-bitmap& bitmap::clear(const rtc::color_rgb& color) noexcept
+auto bitmap::clear(const rtc::color_rgb& color) noexcept -> bitmap&
 {
   std::for_each(begin(), end(), [&](auto& c) { c.color = color; });
   return *this;
 }
 
-bitmap& bitmap::revert() noexcept
+auto bitmap::revert() noexcept -> bitmap&
 {
   std::for_each(begin(), end(), [](auto& c) { c.color = c.color.revert(); });
   return *this;
 }
 
-bitmap bitmap::operator!() const { return bitmap(*this).revert(); }
+auto bitmap::operator!() const -> bitmap { return bitmap(*this).revert(); }
 
-bitmap& bitmap::insert(const std::uint16_t x, const std::uint16_t y, const bitmap& bmp)
+auto bitmap::insert(const std::uint16_t x, const std::uint16_t y, const bitmap& bmp) -> bitmap&
 {
-  if (empty()) resize(x + bmp.width(), y + bmp.height());
+  if (empty())
+    resize(x + bmp.width(), y + bmp.height());
 
   for (const auto& p : *this)
-    {
-      const auto l_x{x + p.x}, l_y{y + p.y};
+  {
+    const auto l_x{x + p.x}, l_y{y + p.y};
 
-      if (in_range(l_x, l_y)) operator()(l_x, l_y) = p.color;
-    }
+    if (in_range(l_x, l_y))
+      operator()(l_x, l_y) = p.color;
+  }
   return *this;
 }
 
@@ -233,45 +238,49 @@ void bitmap::reset() noexcept
 bitmap bitmap::trim(const std::uint16_t x, const std::uint16_t y, const std::uint16_t width,
                     const std::uint16_t height) const
 {
-  if (empty()) return bitmap{};
+  if (empty())
+    return bitmap{};
 
   bitmap bmp{width, height};
 
   for (pixel& p : bmp)
-    {
-      const auto l_x{x + p.x}, l_y{y + p.y};
+  {
+    const auto l_x{x + p.x}, l_y{y + p.y};
 
-      if (in_range(l_x, l_y)) p.color = operator()(l_x, l_y);
-    }
+    if (in_range(l_x, l_y))
+      p.color = operator()(l_x, l_y);
+  }
   return bmp;
 }
 
-bool bitmap::in_range(const std::uint16_t x, const std::uint16_t y) const noexcept
+auto bitmap::in_range(const std::uint16_t x, const std::uint16_t y) const noexcept -> bool
 {
   return (x < width()) && (y < height());
 }
 
 color_rgb& bitmap::at(const std::uint16_t x, const std::uint16_t y)
 {
-  if (in_range(x, y)) return operator()(x, y);
+  if (in_range(x, y))
+    return operator()(x, y);
 
   throw std::out_of_range{"bitmap::at -> in_range false"};
 }
 
 const color_rgb& bitmap::at(const std::uint16_t x, const std::uint16_t y) const
 {
-  if (in_range(x, y)) return operator()(x, y);
+  if (in_range(x, y))
+    return operator()(x, y);
 
   throw std::out_of_range("bitmap::at const -> in_range false");
 }
 
-bitmap& bitmap::swap(bitmap& bmp) noexcept(noexcept(std::declval<base>().swap(std::declval<base&>())))
+auto bitmap::swap(bitmap& bmp) noexcept(noexcept(std::declval<base>().swap(std::declval<base&>()))) -> bitmap&
 {
   base::swap(bmp);
   return *this;
 }
 
-bitmap& bitmap::draw(const std::function<color_rgb(std::uint16_t, std::uint16_t)>& fn) noexcept
+auto bitmap::draw(const std::function<color_rgb(std::uint16_t, std::uint16_t)>& fn) noexcept -> bitmap&
 {
   for (auto i{0u}; i < width(); ++i)
     for (auto j{0u}; j < height(); ++j) operator()(i, j) = fn(i, j);
