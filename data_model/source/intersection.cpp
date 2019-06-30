@@ -3,18 +3,18 @@
 namespace rtc
 {
 
-math_point intersection::hit_point(const math_ray& ray) const noexcept
+auto intersection::hit_point(const math_ray& ray) const noexcept -> math_point
 {
   return ray[ std::get<1>(object.value()) ];
 }
 
-const rtc::color& intersection::color(const rtc::scene_model& data) const noexcept
+auto intersection::color(const rtc::scene_model& data) const noexcept -> const rtc::color&
 {
   return attribute(data).material_color;
 }
 
-math_vector intersection::normal_vector(const rtc::math_ray& r,
-                                        const rtc::scene_model& data) const noexcept
+auto intersection::normal_vector(const rtc::math_ray& r,
+                                        const rtc::scene_model& data) const noexcept -> math_vector
 {
   //TODO: this is only temp solution, as those normals should be stored in
   //      brs.xml file
@@ -29,7 +29,7 @@ math_vector intersection::normal_vector(const rtc::math_ray& r,
     auto v = normalize(-r.direction());
 
     const auto cos_n = dot(n, v);
-    if(cos_n < 0.0f)
+    if(cos_n < 0.0F)
        n = -n;
 
     //data.normals[std::get<0>(object.value())] = n;
@@ -39,12 +39,12 @@ math_vector intersection::normal_vector(const rtc::math_ray& r,
  // return data.normals[std::get<0>(object.value())];
 }
 
-bool intersection::is_present() const noexcept
+auto intersection::is_present() const noexcept -> bool
 {
   return object.has_value();
 }
 
-bool intersection::is_none() const noexcept
+auto intersection::is_none() const noexcept -> bool
 {
   return !is_present();
 }
@@ -54,30 +54,30 @@ intersection::operator bool() const noexcept
   return is_present();
 }
 
-bool intersection::is_reflective(const rtc::scene_model& data) const noexcept
+auto intersection::is_reflective(const rtc::scene_model& data) const noexcept -> bool
 {
-  return attribute(data).mirror || (attribute(data).ks != 0.0f);
+  return attribute(data).mirror || (attribute(data).ks != 0.0F);
 }
 
-bool intersection::is_refractive(const rtc::scene_model& data) const noexcept
+auto intersection::is_refractive(const rtc::scene_model& data) const noexcept -> bool
 {
-  return attribute(data).kts != 0.0f;
+  return attribute(data).kts != 0.0F;
 }
 
-rtc_pure std::optional<math_ray> intersection::reflect(const math_ray& r, const rtc::scene_model& sc) const noexcept
+rtc_pure auto intersection::reflect(const math_ray& r, const rtc::scene_model& sc) const noexcept -> std::optional<math_ray>
 {
   if(is_reflective(sc))
   {
     const auto n = normal_vector(r, sc);
     const auto l = normalize(-r.direction());
 
-    return {{ 2.0f * dot(l, n) * n - l, hit_point(r) }};
+    return {{ 2.0F * dot(l, n) * n - l, hit_point(r) }};
   }
 
   return std::nullopt;
 }
 
-rtc_pure std::optional<math_ray> intersection::refract(const math_ray& r, const rtc::scene_model& sc) const noexcept
+rtc_pure auto intersection::refract(const math_ray& r, const rtc::scene_model& sc) const noexcept -> std::optional<math_ray>
 {
   if(is_refractive(sc))
   {
@@ -86,12 +86,12 @@ rtc_pure std::optional<math_ray> intersection::refract(const math_ray& r, const 
     const auto v{normalize(-r.direction())};
 
     const auto cosThetaI{dot(v, n)};
-    const auto sin2ThetaI{std::max<rtc_float>(0.f, 1.f - cosThetaI * cosThetaI)};
+    const auto sin2ThetaI{std::max<rtc_float>(0.F, 1.F - cosThetaI * cosThetaI)};
     const auto sin2ThetaT{eta * eta * sin2ThetaI};
 
     if(sin2ThetaT < 1)
     {
-      const auto cosThetaT = std::sqrt(1.f - sin2ThetaT);
+      const auto cosThetaT = std::sqrt(1.F - sin2ThetaT);
       return {{ eta*(-v) + (eta * cosThetaI - cosThetaT) * n, hit_point(r) }};
     }
   }
@@ -99,44 +99,44 @@ rtc_pure std::optional<math_ray> intersection::refract(const math_ray& r, const 
   return std::nullopt;
 }
 
-rtc_pure const rtc::triangle3d& intersection::triangle(const rtc::scene_model& data) const noexcept
+rtc_pure auto intersection::triangle(const rtc::scene_model& data) const noexcept -> const rtc::triangle3d&
 {
   return data.triangles[std::get<0>(object.value())];
 }
 
-rtc_pure const rtc::surface_material& intersection::attribute(const rtc::scene_model& data) const noexcept
+rtc_pure auto intersection::attribute(const rtc::scene_model& data) const noexcept -> const rtc::surface_material&
 {
   assert(std::get<0>(object.value()) < data.triangles.size());
   assert(data.material_id[std::get<0>(object.value())] < data.materials.size());
   return data.materials[data.material_id[std::get<0>(object.value())]];
 }
 
-bool intersection::is_with(std::uint32_t t) const noexcept
+auto intersection::is_with(std::uint32_t t) const noexcept -> bool
 {
   return is_present() && (std::get<0>(object.value()) == t);
 }
 
-bool intersection::operator==(const intersection& i) const noexcept
+auto intersection::operator==(const intersection& i) const noexcept -> bool
 {
    return object == i.object;
 }
 
-bool intersection::operator!=(const intersection& i) const noexcept
+auto intersection::operator!=(const intersection& i) const noexcept -> bool
 {
    return object != i.object;
 }
 
-bool intersection::operator<(const rtc::intersection& i) const noexcept
+auto intersection::operator<(const rtc::intersection& i) const noexcept -> bool
 {
   return std::get<1>(object.value()) < std::get<1>(i.object.value());
 }
 
-rtc_float intersection::operator-(const intersection& i) const noexcept
+auto intersection::operator-(const intersection& i) const noexcept -> rtc_float
 {
   return std::get<1>(i.object.value()) - std::get<1>(object.value());
 }
 
-std::ostream& operator<<(std::ostream& s, intersection& i) noexcept
+auto operator<<(std::ostream& s, intersection& i) noexcept -> std::ostream&
 {
   if(i)
     return s << "[triangle: " << std::get<0>(i.object.value()) << ", intersect_value: " << std::get<1>(i.object.value()) << "]";

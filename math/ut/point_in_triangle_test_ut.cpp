@@ -4,9 +4,7 @@
 #include "point_in_triangle_test.hpp"
 #include <memory>
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 TEST(point_in_triangle_test_ut, test_flat_on_z_axis)
@@ -59,5 +57,4 @@ TEST(point_in_triangle_test_ut, test_triangle_contains_gemoetric_center)
   ASSERT_TRUE (test.triangle_contains({2, 2, 2}));
 }
 
-}
 }

@@ -17,7 +17,7 @@ auto kd_tree::const_iterator::operator==(const kd_tree::const_iterator& i) const
   return current_node == i.current_node;
 }
 
-bool kd_tree::const_iterator::operator!=(const kd_tree::const_iterator& i) const noexcept
+auto kd_tree::const_iterator::operator!=(const kd_tree::const_iterator& i) const noexcept -> bool
 {
   return !(*this == i);
 }

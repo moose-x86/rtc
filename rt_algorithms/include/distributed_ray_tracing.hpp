@@ -53,7 +53,7 @@ struct distributed_ray_tracing_shadows
     rtc::color ilumination{1, 1, 1};
 #endif
 
-    rtc::color r = rtc::clamp(object.color(*scene) * ilumination);
+    rtc::color r = rtc::clamp(object.color(*scene) * illumination);
 
     if (refracted)
       r = (1 - m.kts) * r + m.kts * refracted.value();

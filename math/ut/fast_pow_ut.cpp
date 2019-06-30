@@ -2,9 +2,7 @@
 #include "fast_pow.hpp"
 #include <cmath>
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 TEST(fast_pow_ut, test_for_n_zero)
@@ -37,5 +35,4 @@ TEST(fast_pow_ut, test_for_2_pow_30)
     ASSERT_EQ(x, std::pow(2, 30));
 }
 
-}
 }

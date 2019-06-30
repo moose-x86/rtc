@@ -77,7 +77,7 @@ void blend::blend_impl::load_camera()
   const auto cp = camera->mClipPlaneNear;
   const auto half_horizontal_side = cp * std::tan(camera->mHorizontalFOV / 2);
 
-  const auto aspect = camera->mAspect ? camera->mAspect : 16.0f / 9.0f;
+  const auto aspect = camera->mAspect ? camera->mAspect : 16.0F / 9.0F;
   const auto half_vertical_side = half_horizontal_side / aspect;
 
   const auto screen_middle = cp * v_look + sc.optical_system.view_point;
@@ -165,7 +165,7 @@ void blend::blend_impl::load_geometry_and_materials(const aiNode* const node)
     RELEASE << rtc_m;
     assert(mesh->HasFaces());
 
-    for (auto vi{0u}; vi < mesh->mNumFaces; ++vi)
+    for (auto vi{0U}; vi < mesh->mNumFaces; ++vi)
     {
       const auto& face = mesh->mFaces[vi];
       assert(face.mNumIndices == 3);
@@ -176,14 +176,14 @@ void blend::blend_impl::load_geometry_and_materials(const aiNode* const node)
     }
   }
 
-  for (auto i{0u}; i < node->mNumChildren; ++i) load_geometry_and_materials(node->mChildren[i]);
+  for (auto i{0U}; i < node->mNumChildren; ++i) load_geometry_and_materials(node->mChildren[i]);
 }
 
 void blend::blend_impl::load_lights()
 {
   aiColor3D ambient;
 
-  for (auto l{0u}; l < scene->mNumLights; ++l)
+  for (auto l{0U}; l < scene->mNumLights; ++l)
   {
     const auto& light = scene->mLights[l];
     const auto& node = scene->mRootNode->FindNode(light->mName);

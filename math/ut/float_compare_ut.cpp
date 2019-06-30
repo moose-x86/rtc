@@ -1,9 +1,7 @@
 #include "gtest/gtest.h"
 #include "float_compare.hpp"
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 TEST(float_compare_ut, test_zero_compare)
@@ -24,5 +22,4 @@ TEST(float_compare_ut, test_for_constexpr)
 }
 
 
-}
 }

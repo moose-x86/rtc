@@ -9,9 +9,7 @@
 #include "scoped_timer.hpp"
 #include "ray_tracer.hpp"
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 TEST(kd_tree_ut, room_test_found_1032)
@@ -19,7 +17,7 @@ TEST(kd_tree_ut, room_test_found_1032)
   auto scene = std::make_shared<rtc::brs>("./room.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{-6.788838f, 2.300512f, 4.642227f};
+  const rtc::math_vector v{-6.788838F, 2.300512F, 4.642227F};
   const rtc::math_ray ray{v, scene->optical_system.view_point};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
@@ -33,7 +31,7 @@ TEST(kd_tree_ut, room_test_found_)
   auto scene = std::make_shared<rtc::brs>("./room.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{-5.145645f, -0.382301f, 5.584966f};
+  const rtc::math_vector v{-5.145645F, -0.382301F, 5.584966F};
   const rtc::math_ray ray{v, scene->optical_system.view_point};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
@@ -47,7 +45,7 @@ TEST(kd_tree_ut, room_test_found_2)
   auto scene = std::make_shared<rtc::brs>("./room.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{-4.396932f, -0.778016f, 6.014521f};
+  const rtc::math_vector v{-4.396932F, -0.778016F, 6.014521F};
   const rtc::math_ray ray{v, scene->optical_system.view_point};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
@@ -61,8 +59,8 @@ TEST(kd_tree_ut, kitchen_test_found)
   auto scene = std::make_shared<rtc::brs>("./kitchen.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{2.139743f, -0.249007f, -1.756500f};
-  const rtc::math_ray ray{v, {2.435057f, 2.308806f, -0.50000f}};
+  const rtc::math_vector v{2.139743F, -0.249007F, -1.756500F};
+  const rtc::math_ray ray{v, {2.435057F, 2.308806F, -0.50000F}};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
   const auto intersect = finder.trace_ray(ray);
@@ -75,7 +73,7 @@ TEST(kd_tree_ut, DISABLED_kitchen_test_found_2)
   auto scene = std::make_shared<rtc::brs>("./kitchen.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{-3.624093f, 0.389207f, 3.397013f};
+  const rtc::math_vector v{-3.624093F, 0.389207F, 3.397013F};
   const rtc::math_ray ray{v, scene->optical_system.view_point};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
@@ -89,7 +87,7 @@ TEST(kd_tree_ut, ulica_test_found)
   auto scene = std::make_shared<rtc::brs>("./ulica.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{35.994164f, 12.552099f, 10.576778f};
+  const rtc::math_vector v{35.994164F, 12.552099F, 10.576778F};
   const rtc::math_ray ray{v, scene->optical_system.view_point};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
@@ -103,8 +101,8 @@ TEST(kd_tree_ut, ulica_test_found_2)
   auto scene = std::make_shared<rtc::brs>("./ulica.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{-12.702606f, -25.481249f, 39.070004f};
-  const rtc::math_ray ray{v, {78.202606f, 28.281248f, 25.230000f}};
+  const rtc::math_vector v{-12.702606F, -25.481249F, 39.070004F};
+  const rtc::math_ray ray{v, {78.202606F, 28.281248F, 25.230000F}};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
   const auto intersect = finder.trace_ray(ray);
@@ -117,8 +115,8 @@ TEST(kd_tree_ut, ulica_test_found_3)
   auto scene = std::make_shared<rtc::brs>("./ulica.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{-22.110607f, -23.501247f, 21.443001f};
-  const rtc::math_ray ray{v, {78.202606f, 28.281248f, 25.230000f}};
+  const rtc::math_vector v{-22.110607F, -23.501247F, 21.443001F};
+  const rtc::math_ray ray{v, {78.202606F, 28.281248F, 25.230000F}};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
   const auto intersect = finder.trace_ray(ray);
@@ -131,7 +129,7 @@ TEST(kd_tree_ut, DISABLED_cornell_box_test)
   auto scene = std::make_shared<rtc::brs>("./cornell_box.xml");
   rtc::kd_tree acc{*scene};
 
-  const rtc::math_vector v{1.066667f, 0.951870f, 3.365898f};
+  const rtc::math_vector v{1.066667F, 0.951870F, 3.365898F};
   const rtc::math_ray ray{v, scene->optical_system.view_point};
 
   rtc::ray_tracer<rtc::kd_tree> finder{std::move(acc), scene};
@@ -140,6 +138,5 @@ TEST(kd_tree_ut, DISABLED_cornell_box_test)
   ASSERT_TRUE(intersect && intersect.is_with(2));
 }
 
-}
 }
 

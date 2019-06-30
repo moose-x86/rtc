@@ -1,9 +1,7 @@
 #include "gtest/gtest.h"
 #include "blend.hpp"
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 TEST(blender_ut, DISABLED_basic_test)
@@ -12,5 +10,4 @@ TEST(blender_ut, DISABLED_basic_test)
 
 }
 
-}
 }

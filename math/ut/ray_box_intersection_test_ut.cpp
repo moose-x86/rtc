@@ -1,9 +1,7 @@
 #include <gtest/gtest.h>
 #include "ray_box_intersection_test.hpp"
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 auto create_bbox()
@@ -102,5 +100,4 @@ TEST(ray_box_intersection_test_ut, test_no_intesection_on_axisz_ray_towards_box)
   ASSERT_NEAR(std::get<1>(*intersection_range), 6.6667, 0.0001);
 }
 
-}
 }

@@ -4,9 +4,7 @@
 #include "math_plane.hpp"
 #include <memory>
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 TEST(math_plane_ut, test_get_intesection)
@@ -14,7 +12,7 @@ TEST(math_plane_ut, test_get_intesection)
   rtc::math_plane plane{rtc::math_vector{0, 0, 1}, rtc::math_point{0, 0, 0}};
   rtc::math_ray ray{rtc::math_vector{0, 0, -1}, rtc::math_point{0, 0, 10}};
 
-  ASSERT_EQ(plane.intersection_value(ray), 10.0f);
+  ASSERT_EQ(plane.intersection_value(ray), 10.0F);
 }
 
 TEST(math_plane_ut, test_get_intesection_no_intersection)
@@ -35,5 +33,4 @@ TEST(math_plane_ut, test_get_intesection_in_zero)
   ASSERT_EQ(ray[t], (rtc::math_point{0, 0, 0}));
 }
 
-}
 }

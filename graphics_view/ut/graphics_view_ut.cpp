@@ -5,9 +5,7 @@
 #include <memory>
 #include "rtc_log.hpp"
 
-namespace rtc
-{
-namespace ut
+namespace rtc::ut
 {
 
 TEST(graphics_view_ut, DISABLED_basic_move)
@@ -156,5 +154,4 @@ TEST(graphics_view_ut, collada_mech_room_test)
   b.save("Mech_Room.bmp");
 }
 
-}
 }

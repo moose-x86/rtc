@@ -138,12 +138,12 @@ auto bitmap::width() const noexcept -> std::size_t { return header_data.biWidth;
 
 auto bitmap::height() const noexcept -> std::size_t { return header_data.biHeight; }
 
-bool bitmap::assign(const std::uint16_t x, const std::uint16_t y, const color_rgb& color) noexcept
+auto bitmap::assign(const std::uint16_t x, const std::uint16_t y, const color_rgb& color) noexcept -> bool
 {
   return assign({x, y, color});
 }
 
-bool bitmap::assign(const rtc::pixel& p) noexcept
+auto bitmap::assign(const rtc::pixel& p) noexcept -> bool
 {
   if (in_range(p.x, p.y))
     operator()(p.x, p.y) = p.color;
@@ -168,7 +168,7 @@ auto bitmap::resize(const std::uint16_t width, const std::uint16_t height) -> bi
   return *this;
 }
 
-std::size_t bitmap::pixel_amount() const noexcept { return size(); }
+auto bitmap::pixel_amount() const noexcept -> std::size_t { return size(); }
 
 auto bitmap::operator()(const std::uint16_t x, const std::uint16_t y) -> color_rgb&
 {
@@ -235,8 +235,8 @@ void bitmap::reset() noexcept
   header_data.biYPelsPerMeter = 2834;
 }
 
-bitmap bitmap::trim(const std::uint16_t x, const std::uint16_t y, const std::uint16_t width,
-                    const std::uint16_t height) const
+auto bitmap::trim(const std::uint16_t x, const std::uint16_t y, const std::uint16_t width,
+                  const std::uint16_t height) const -> bitmap
 {
   if (empty())
     return bitmap{};
@@ -258,7 +258,7 @@ auto bitmap::in_range(const std::uint16_t x, const std::uint16_t y) const noexce
   return (x < width()) && (y < height());
 }
 
-color_rgb& bitmap::at(const std::uint16_t x, const std::uint16_t y)
+auto bitmap::at(const std::uint16_t x, const std::uint16_t y) -> color_rgb&
 {
   if (in_range(x, y))
     return operator()(x, y);
@@ -266,7 +266,7 @@ color_rgb& bitmap::at(const std::uint16_t x, const std::uint16_t y)
   throw std::out_of_range{"bitmap::at -> in_range false"};
 }
 
-const color_rgb& bitmap::at(const std::uint16_t x, const std::uint16_t y) const
+auto bitmap::at(const std::uint16_t x, const std::uint16_t y) const -> const color_rgb&
 {
   if (in_range(x, y))
     return operator()(x, y);
@@ -282,8 +282,8 @@ auto bitmap::swap(bitmap& bmp) noexcept(noexcept(std::declval<base>().swap(std::
 
 auto bitmap::draw(const std::function<color_rgb(std::uint16_t, std::uint16_t)>& fn) noexcept -> bitmap&
 {
-  for (auto i{0u}; i < width(); ++i)
-    for (auto j{0u}; j < height(); ++j) operator()(i, j) = fn(i, j);
+  for (auto i{0U}; i < width(); ++i)
+    for (auto j{0U}; j < height(); ++j) operator()(i, j) = fn(i, j);
 
   return *this;
 }
