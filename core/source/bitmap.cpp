@@ -20,10 +20,10 @@ bitmap::bitmap(const std::string& path) : bitmap()
 bitmap::bitmap(const std::uint16_t x, const std::uint16_t y) : bitmap() { resize(x, y); }
 
 auto bitmap::compare(const bitmap& bmp, const std::function<bool(const rtc::color_rgb&, const rtc::color_rgb&)>& cmp)
-    -> boost::tribool
+    -> std::optional<bool>
 {
   if (not(width() == bmp.width() and height() == bmp.height()))
-    return boost::indeterminate;
+    return std::nullopt;
 
   rtc::bitmap result{static_cast<std::uint16_t>(width()), static_cast<std::uint16_t>(height())};
 
