@@ -13,11 +13,11 @@ matrix:
           sources:
             - ubuntu-toolchain-r-test
           packages:
-            - g++-8 
+            - g++-8
       env:
         - C_COMPILER=gcc-8
         - CXX_COMPILER=g++-8
-    
+
     - compiler: clang
       addons:
         apt:
@@ -25,14 +25,14 @@ matrix:
             - ubuntu-toolchain-r-test
             - llvm-toolchain-trusty-5.0
           packages:
-            - g++-8 
+            - g++-8
             - clang-5.0
       env:
          - C_COMPILER=clang-5.0
          - CXX_COMPILER=clang++-5.0
 
 before_install:
- - wget -O cmake.sh https://cmake.org/files/v3.13/cmake-3.13.1-Linux-x86_64.sh 
+ - wget -O cmake.sh https://cmake.org/files/v3.13/cmake-3.13.1-Linux-x86_64.sh
  - sudo mkdir /usr/local/cmake-3.13
  - sudo sh cmake.sh --skip-license --exclude-subdir --prefix=/usr/local/cmake-3.13
  - wget  --output-document=boost-trunk.tar.bz2 http://ufpr.dl.sourceforge.net/project/boost/boost/1.65.0/boost_1_65_0.tar.bz2
@@ -43,7 +43,7 @@ before_install:
  - sudo update-alternatives --set gcc "/usr/bin/gcc-8"
  - sudo update-alternatives --set g++ "/usr/bin/g++-8"
  - tar jxf boost-trunk.tar.bz2 --strip-components=1 -C $BOOST_ROOT
- - (cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=thread,system,chrono,fiber,atomic,context,filesystem,date_time)
+ - (cd $BOOST_ROOT; ./bootstrap.sh --with-libraries=thread,system,chrono,fiber,atomic,context,filesystem,date_time,logic)
  - (cd $BOOST_ROOT; ./b2 threading=multi --prefix=$BOOST_ROOT -d0 install)
  - uname -a
  - pwd
