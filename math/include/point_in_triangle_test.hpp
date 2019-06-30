@@ -13,7 +13,7 @@ public:
   [[nodiscard]] auto triangle_contains(const math_point& ) const noexcept -> bool;
 
 private:
-  [[nodiscard]] std::tuple<rtc_float, rtc_float> get_projected_point(const rtc::math_point&) const noexcept;
+  [[nodiscard]] auto get_projected_point(const rtc::math_point&) const noexcept -> std::tuple<rtc_float, rtc_float>;
   rtc_hot void compute_all_needed_factors(const math_point&, const math_point&, const math_point&) noexcept;
 
   std::array<rtc_float, 6> a{};

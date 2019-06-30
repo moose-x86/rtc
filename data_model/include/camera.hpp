@@ -25,7 +25,7 @@ struct camera
   } screen;
 };
 
-inline std::ostream& operator<<(std::ostream& os, const rtc::camera& c) noexcept
+inline auto operator<<(std::ostream& os, const rtc::camera& c) noexcept -> std::ostream&
 {
   return os << "[ view{ " << c.view_point << " }, "
             << "screen { "

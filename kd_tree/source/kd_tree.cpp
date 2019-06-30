@@ -25,8 +25,8 @@ kd_tree::kd_tree(const rtc::scene_model& ss) : bbox{ss.points}
   rtc::bounding_box node_bbox{p};
   std::vector<std::uint32_t> v(t.size());
   std::vector<bounding_box> primitive_bboxes;
-  edge_buffer_array_t edge_buffer{edge_buffer_t(2 * t.size()), edge_buffer_t(2 * t.size()),
-                                  edge_buffer_t(2 * t.size())};
+  edge_buffer_array_t edge_buffer{
+      edge_buffer_t(2 * t.size()), edge_buffer_t(2 * t.size()), edge_buffer_t(2 * t.size())};
 
   primitive_bboxes.reserve(t.size());
 
@@ -39,10 +39,10 @@ kd_tree::kd_tree(const rtc::scene_model& ss) : bbox{ss.points}
 auto kd_tree::cbegin(const rtc::math_ray& ray) const noexcept -> kd_tree::const_iterator
 {
   if (auto range = bbox.intersection_values_for(ray))
-    {
-      const auto [tmin, tmax] = range.value();
-      return const_iterator{ray, {root.get(), tmin, tmax}};
-    }
+  {
+    const auto [tmin, tmax] = range.value();
+    return const_iterator{ray, {root.get(), tmin, tmax}};
+  }
 
   return const_iterator{};
 }
@@ -53,9 +53,13 @@ kd_tree::~kd_tree() = default;
 kd_tree::kd_tree(kd_tree&&) noexcept = default;
 auto kd_tree::operator=(kd_tree&&) noexcept -> kd_tree& = default;
 
-void kd_tree::build_tree(std::unique_ptr<tree_node>& node, rtc::bounding_box node_bbox, std::vector<std::uint32_t> tr,
-                         const std::vector<rtc::bounding_box>& primitive_bboxes, edge_buffer_array_t& edge_buffer,
-                         const std::uint32_t depth, std::uint32_t bad_refines)
+void kd_tree::build_tree(std::unique_ptr<tree_node>& node,
+                         rtc::bounding_box node_bbox,
+                         std::vector<std::uint32_t> tr,
+                         const std::vector<rtc::bounding_box>& primitive_bboxes,
+                         edge_buffer_array_t& edge_buffer,
+                         const std::uint32_t depth,
+                         std::uint32_t bad_refines)
 {
   const auto create_leaf_node = [&node, &tr] {
     node = std::make_unique<tree_node>();
@@ -63,7 +67,8 @@ void kd_tree::build_tree(std::unique_ptr<tree_node>& node, rtc::bounding_box nod
     node->triangles->insert(node->triangles->end(), tr.begin(), tr.end());
   };
 
-  if (tr.size() <= 1 || !depth) return create_leaf_node();
+  if (tr.size() <= 1 || !depth)
+    return create_leaf_node();
 
   const auto [axis, offset, cost, old_cost] =
       compute_node_split_paramters(edge_buffer, tr, node_bbox, primitive_bboxes);
@@ -74,7 +79,8 @@ void kd_tree::build_tree(std::unique_ptr<tree_node>& node, rtc::bounding_box nod
     return ((cost > 4 * old_cost) && (tr.size() < 16)) || (axis == -1) || (bad_refines == 3);
   };
 
-  if (no_use_of_spliting_node()) return create_leaf_node();
+  if (no_use_of_spliting_node())
+    return create_leaf_node();
 
   auto [left_set, right_set] = split_triangles(std::move(tr), edge_buffer, axis, offset);
   bounding_box left_bbox{node_bbox}, right_bbox{node_bbox};
@@ -88,7 +94,8 @@ void kd_tree::build_tree(std::unique_ptr<tree_node>& node, rtc::bounding_box nod
   build_tree(node->right, right_bbox, std::move(right_set), primitive_bboxes, edge_buffer, depth - 1, bad_refines);
 }
 
-auto kd_tree::compute_node_split_paramters(edge_buffer_array_t& edge_buffer, const std::vector<std::uint32_t>& tr,
+auto kd_tree::compute_node_split_paramters(edge_buffer_array_t& edge_buffer,
+                                           const std::vector<std::uint32_t>& tr,
                                            const rtc::bounding_box& node_bbox,
                                            const std::vector<rtc::bounding_box>& primitive_bboxes)
     -> std::tuple<int, int, rtc_float, rtc_float>
@@ -107,59 +114,61 @@ auto kd_tree::compute_node_split_paramters(edge_buffer_array_t& edge_buffer, con
   rtc_float best_cost{std::numeric_limits<rtc_float>::max()};
 
   do
+  {
+    const rtc::axis axis2{next(axis)}, axis3{next(axis2)};
+    int below{}, above(tr.size());
+
+    for (const auto i : boost::irange<std::size_t>(0, tr.size()))
     {
-      const rtc::axis axis2{next(axis)}, axis3{next(axis2)};
-      int below{}, above(tr.size());
-
-      for (const auto i : boost::irange<std::size_t>(0, tr.size()))
-        {
-          const rtc::bounding_box& box{primitive_bboxes[tr[i]]};
-          edge_buffer[int(axis)][2 * i] = {box.min_boundary().axis(axis), tr[i], bounding_edge_point::start};
-          edge_buffer[int(axis)][2 * i + 1] = {box.max_boundary().axis(axis), tr[i], bounding_edge_point::end};
-        }
-
-      std::sort(&edge_buffer[int(axis)][0], &edge_buffer[int(axis)][0] + 2 * tr.size());
-
-      for (const auto i : boost::irange<std::size_t>(0, 2 * tr.size()))
-        {
-          const rtc::bounding_edge_point& bp{edge_buffer[int(axis)][i]};
-          const auto edge_t = bp.value;
-
-          if (bp.type == bounding_edge_point::end) --above;
-          if (bp.type == bounding_edge_point::start) ++below;
-
-          if (edge_t > node_bbox.min_boundary().axis(axis) && edge_t < node_bbox.max_boundary().axis(axis))
-            {
-              const rtc_float belowSA{2 * (node_diagonal.axis(axis2) * node_diagonal.axis(axis3) +
-                                           (edge_t - node_bbox.min_boundary().axis(axis)) *
-                                               (node_diagonal.axis(axis2) + node_diagonal.axis(axis3)))};
-
-              const rtc_float aboveSA{2 * (node_diagonal.axis(axis2) * node_diagonal.axis(axis3) +
-                                           (node_bbox.max_boundary().axis(axis) - edge_t) *
-                                               (node_diagonal.axis(axis2) + node_diagonal.axis(axis3)))};
-
-              const rtc_float pBelow{belowSA * invTotalSA};
-              const rtc_float pAbove{aboveSA * invTotalSA};
-              const rtc_float eb{(above == 0 || below == 0) ? empty_bonus : 0};
-              const rtc_float cost{traversal_cost + isect_cost * (1 - eb) * (pBelow * below + pAbove * above)};
-
-              if (cost < best_cost)
-                {
-                  best_cost = cost;
-                  best_axis = int(axis);
-                  best_offset = i;
-                }
-            }
-        }
+      const rtc::bounding_box& box{primitive_bboxes[tr[i]]};
+      edge_buffer[int(axis)][2 * i] = {box.min_boundary().axis(axis), tr[i], bounding_edge_point::start};
+      edge_buffer[int(axis)][2 * i + 1] = {box.max_boundary().axis(axis), tr[i], bounding_edge_point::end};
     }
-  while ((best_axis == -1) && ((axis = next(axis), retries++) < 2));
+
+    std::sort(&edge_buffer[int(axis)][0], &edge_buffer[int(axis)][0] + 2 * tr.size());
+
+    for (const auto i : boost::irange<std::size_t>(0, 2 * tr.size()))
+    {
+      const rtc::bounding_edge_point& bp{edge_buffer[int(axis)][i]};
+      const auto edge_t = bp.value;
+
+      if (bp.type == bounding_edge_point::end)
+        --above;
+      if (bp.type == bounding_edge_point::start)
+        ++below;
+
+      if (edge_t > node_bbox.min_boundary().axis(axis) && edge_t < node_bbox.max_boundary().axis(axis))
+      {
+        const rtc_float belowSA{2 * (node_diagonal.axis(axis2) * node_diagonal.axis(axis3) +
+                                     (edge_t - node_bbox.min_boundary().axis(axis)) *
+                                         (node_diagonal.axis(axis2) + node_diagonal.axis(axis3)))};
+
+        const rtc_float aboveSA{2 * (node_diagonal.axis(axis2) * node_diagonal.axis(axis3) +
+                                     (node_bbox.max_boundary().axis(axis) - edge_t) *
+                                         (node_diagonal.axis(axis2) + node_diagonal.axis(axis3)))};
+
+        const rtc_float pBelow{belowSA * invTotalSA};
+        const rtc_float pAbove{aboveSA * invTotalSA};
+        const rtc_float eb{(above == 0 || below == 0) ? empty_bonus : 0};
+        const rtc_float cost{traversal_cost + isect_cost * (1 - eb) * (pBelow * below + pAbove * above)};
+
+        if (cost < best_cost)
+        {
+          best_cost = cost;
+          best_axis = int(axis);
+          best_offset = i;
+        }
+      }
+    }
+  } while ((best_axis == -1) && ((axis = next(axis), retries++) < 2));
 
   return {best_axis, best_offset, best_cost, old_cost};
 }
 
-auto kd_tree::split_triangles(std::vector<std::uint32_t>&& tr_init, const edge_buffer_array_t& edge_buffer,
-                              const std::uint32_t best_axis, const std::uint32_t best_offset)
-    -> vector_tuple<std::uint32_t, std::uint32_t>
+auto kd_tree::split_triangles(std::vector<std::uint32_t>&& tr_init,
+                              const edge_buffer_array_t& edge_buffer,
+                              const std::uint32_t best_axis,
+                              const std::uint32_t best_offset) -> vector_tuple<std::uint32_t, std::uint32_t>
 {
   std::vector<std::uint32_t> tr{std::move(tr_init)}, left_set{}, right_set{};
 
@@ -167,20 +176,20 @@ auto kd_tree::split_triangles(std::vector<std::uint32_t>&& tr_init, const edge_b
   right_set.reserve(2 * tr.size() - best_offset);
 
   for (auto i = 0; i < best_offset; ++i)
+  {
+    if (edge_buffer[best_axis][i].type == bounding_edge_point::start)
     {
-      if (edge_buffer[best_axis][i].type == bounding_edge_point::start)
-        {
-          left_set.emplace_back(edge_buffer[best_axis][i].tr_index);
-        }
+      left_set.emplace_back(edge_buffer[best_axis][i].tr_index);
     }
+  }
 
   for (auto i = best_offset + 1; i < 2 * tr.size(); ++i)
+  {
+    if (edge_buffer[best_axis][i].type == bounding_edge_point::end)
     {
-      if (edge_buffer[best_axis][i].type == bounding_edge_point::end)
-        {
-          right_set.emplace_back(edge_buffer[best_axis][i].tr_index);
-        }
+      right_set.emplace_back(edge_buffer[best_axis][i].tr_index);
     }
+  }
 
   return {std::move(left_set), std::move(right_set)};
 }

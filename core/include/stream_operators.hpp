@@ -7,7 +7,7 @@
 namespace std {
 
 template <typename T>
-std::ostream &operator<<(std::ostream &ss, const std::vector<T> &v) noexcept {
+auto operator<<(std::ostream &ss, const std::vector<T> &v) noexcept -> std::ostream & {
   ss << "{ ";
 
   if (not v.empty()) {
@@ -20,7 +20,7 @@ std::ostream &operator<<(std::ostream &ss, const std::vector<T> &v) noexcept {
 }
 
 template <typename T>
-std::ostream &operator<<(std::ostream &ss, const std::set<T> &v) noexcept {
+auto operator<<(std::ostream &ss, const std::set<T> &v) noexcept -> std::ostream & {
   ss << "{ ";
 
   if (not v.empty()) {
@@ -33,7 +33,7 @@ std::ostream &operator<<(std::ostream &ss, const std::set<T> &v) noexcept {
 }
 
 template <typename K, typename V>
-std::ostream &operator<<(std::ostream &ss, const std::map<K, V> &v) noexcept {
+auto operator<<(std::ostream &ss, const std::map<K, V> &v) noexcept -> std::ostream & {
   ss << "{ ";
 
   if (not v.empty()) {

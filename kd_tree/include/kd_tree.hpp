@@ -39,18 +39,24 @@ class kd_tree
   ray_box_intersection_test bbox;
   std::unique_ptr<tree_node> root;
 
-  rtc_hot void build_tree(std::unique_ptr<tree_node> &node, rtc::bounding_box b, std::vector<std::uint32_t> tr,
-                          const std::vector<rtc::bounding_box> &primitive_bboxes, edge_buffer_array_t &edges,
-                          const std::uint32_t depth, std::uint32_t bad_refines = 0);
+  rtc_hot void build_tree(std::unique_ptr<tree_node> &node,
+                          rtc::bounding_box b,
+                          std::vector<std::uint32_t> tr,
+                          const std::vector<rtc::bounding_box> &primitive_bboxes,
+                          edge_buffer_array_t &edges,
+                          const std::uint32_t depth,
+                          std::uint32_t bad_refines = 0);
 
-  rtc_hot auto compute_node_split_paramters(edge_buffer_array_t &edges, const std::vector<std::uint32_t> &tr,
+  rtc_hot auto compute_node_split_paramters(edge_buffer_array_t &edges,
+                                            const std::vector<std::uint32_t> &tr,
                                             const rtc::bounding_box &node_bbox,
                                             const std::vector<rtc::bounding_box> &primitive_bboxes)
       -> std::tuple<int, int, rtc_float, rtc_float>;
 
-  rtc_hot auto split_triangles(std::vector<std::uint32_t> &&, const edge_buffer_array_t &edges,
-                               const std::uint32_t best_axis, const std::uint32_t best_offset)
-      -> vector_tuple<std::uint32_t, std::uint32_t>;
+  rtc_hot auto split_triangles(std::vector<std::uint32_t> &&,
+                               const edge_buffer_array_t &edges,
+                               const std::uint32_t best_axis,
+                               const std::uint32_t best_offset) -> vector_tuple<std::uint32_t, std::uint32_t>;
 };
 
 }  // namespace rtc

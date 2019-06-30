@@ -18,8 +18,11 @@ struct distributed_ray_tracing_shadows
   explicit distributed_ray_tracing_shadows(std::shared_ptr<const rtc::scene_model> sc) : scene(std::move(sc)) {}
 
   template <typename rt_serv>
-  auto compute_color(const rtc::math_ray& ray, const rtc::intersection& object, const optional_color& reflected,
-                     const optional_color& refracted, rt_serv& rt) -> rtc::color
+  auto compute_color(const rtc::math_ray& ray,
+                     const rtc::intersection& object,
+                     const optional_color& reflected,
+                     const optional_color& refracted,
+                     rt_serv& rt) -> rtc::color
   {
     const auto& m = object.attribute(*scene);
     const auto n = object.normal_vector(ray, *scene);
@@ -28,7 +31,7 @@ struct distributed_ray_tracing_shadows
     rtc::color illumination{m.ka * scene->ambient};
     for (const auto& light : scene->lights)
     {
-      //TODO: Extract this into rtc::shadow_ray class probably with ctor which takes reference to
+      // TODO: Extract this into rtc::shadow_ray class probably with ctor which takes reference to
       //      Illumination
       const auto l = light.position - object.hit_point(ray);
 
@@ -50,7 +53,7 @@ struct distributed_ray_tracing_shadows
       }
     }
 #else
-    rtc::color ilumination{1, 1, 1};
+    rtc::color illumination{1, 1, 1};
 #endif
 
     rtc::color r = rtc::clamp(object.color(*scene) * illumination);
@@ -68,9 +71,11 @@ struct distributed_ray_tracing_shadows
   const std::shared_ptr<const rtc::scene_model> scene;
 
   template <typename _rt>
-  auto get_intersection_with_light_ray(const rtc::intersection& object, const rtc::math_ray& ray,
-                                      const rtc::math_vector& L, const rtc::light& light, _rt& rt) const
-      -> std::tuple<intersection, float>
+  auto get_intersection_with_light_ray(const rtc::intersection& object,
+                                       const rtc::math_ray& ray,
+                                       const rtc::math_vector& L,
+                                       const rtc::light& light,
+                                       _rt& rt) const -> std::tuple<intersection, float>
   {
     rtc::math_ray shadow_ray{L, object.hit_point(ray)};
     rtc::intersection intersect{}, priv{object};

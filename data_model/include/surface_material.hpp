@@ -8,7 +8,7 @@ namespace rtc
 
 struct surface_material
 {
-  rtc_float kd{.1f};
+  rtc_float kd{.1F};
   rtc_float ktd{};
   rtc_float ks{};
   rtc_float kts{};
@@ -48,7 +48,7 @@ struct surface_material
 };
 
 
-inline bool operator==(const surface_material& s1, const surface_material& s2) noexcept
+inline auto operator==(const surface_material& s1, const surface_material& s2) noexcept -> bool
 {
   static_assert(std::is_standard_layout<surface_material>::value,
                 "This operator require sm to be standard layout");
@@ -56,12 +56,12 @@ inline bool operator==(const surface_material& s1, const surface_material& s2) n
   return std::memcmp(std::addressof(s1), std::addressof(s2), sizeof(s1)) == 0;
 }
 
-inline bool operator!=(const surface_material& s1, const surface_material& s2) noexcept
+inline auto operator!=(const surface_material& s1, const surface_material& s2) noexcept -> bool
 {
   return !(s1 == s2);
 }
 
-inline std::ostream& operator<<(std::ostream& s, const surface_material& sm)
+inline auto operator<<(std::ostream& s, const surface_material& sm) -> std::ostream&
 {
   return s << "["
            << "kd: " << sm.kd

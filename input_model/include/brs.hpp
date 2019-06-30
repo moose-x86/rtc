@@ -9,7 +9,7 @@ namespace rtc
 class brs : public scene_model
 {
 public:
-  brs(const std::string&);
+  explicit brs(const std::string&);
 
 private:
   void load_points(const boost::property_tree::ptree&);

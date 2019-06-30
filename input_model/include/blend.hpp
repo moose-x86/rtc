@@ -7,7 +7,7 @@ namespace rtc
 struct blend : public rtc::scene_model
 {
 public:
-  blend(const std::string&);
+  explicit blend(const std::string&);
   ~blend();
 
 private:

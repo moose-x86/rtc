@@ -11,7 +11,7 @@ struct light
 {
   color light_color;
   math_point position;
-  std::uint32_t sampling;
+  std::uint32_t sampling{};
 
   enum class light_type
   {
@@ -23,7 +23,7 @@ struct light
 
   union
   {
-    rtc_float radius;
+    rtc_float radius{};
     struct { rtc_float x, y; } side;
   };
 
@@ -33,7 +33,7 @@ struct light
   } inv_square{0.75, 0, 0};
 };
 
-inline float inverse_square_factor(const light& l, const math_vector& direction)
+inline auto inverse_square_factor(const light& l, const math_vector& direction) -> float
 {
   const auto x{length(direction)};
   return std::max<rtc_float>(1.0, x * (l.inv_square.a * x + l.inv_square.b) + l.inv_square.c);

@@ -19,17 +19,17 @@ private:
   std::array<value_type, 3> i{};
 };
 
-inline bool operator==(const triangle3d& t1, const triangle3d& t2) noexcept
+inline auto operator==(const triangle3d& t1, const triangle3d& t2) noexcept -> bool
 {
   return (t1.vertex_a() == t2.vertex_a()) && (t1.vertex_b() == t2.vertex_b()) && (t1.vertex_c() == t2.vertex_c());
 }
 
-inline bool operator!=(const triangle3d& t1, const triangle3d& t2) noexcept
+inline auto operator!=(const triangle3d& t1, const triangle3d& t2) noexcept -> bool
 {
   return !(t1 == t2);
 }
 
-inline std::ostream& operator<<(std::ostream& s, const triangle3d& t) noexcept
+inline auto operator<<(std::ostream& s, const triangle3d& t) noexcept -> std::ostream&
 {
   return s << "[" << t.vertex_a() << ", " << t.vertex_b() << ", " << t.vertex_c() << "]t";
 }

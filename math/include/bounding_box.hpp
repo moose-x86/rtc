@@ -14,14 +14,14 @@ class bounding_box
   explicit bounding_box(const std::vector<math_point>&) noexcept;
   bounding_box(std::initializer_list<math_point>) noexcept;
 
-  auto& min_boundary() const noexcept { return pmin; }
-  auto& max_boundary() const noexcept { return pmax; }
-  auto& min_boundary() noexcept { return pmin; }
-  auto& max_boundary() noexcept { return pmax; }
+  [[nodiscard]] auto min_boundary() const noexcept -> auto& { return pmin; }
+  [[nodiscard]] auto max_boundary() const noexcept -> auto& { return pmax; }
+  auto min_boundary() noexcept -> auto& { return pmin; }
+  auto max_boundary() noexcept -> auto& { return pmax; }
 
   [[nodiscard]] auto diagonal() const noexcept { return pmax - pmin; }
-  auto maximum_extent() const noexcept -> rtc::axis;
-  rtc_float surface_area() const noexcept;
+  [[nodiscard]] auto maximum_extent() const noexcept -> rtc::axis;
+  [[nodiscard]] auto surface_area() const noexcept -> rtc_float;
 
  private:
   template <typename B, typename E>

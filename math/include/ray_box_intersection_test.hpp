@@ -18,8 +18,8 @@ public:
   using tmax_t = rtc_float;
   using ray_intersection_tuple = rtc::optional_tuple<tmin_t, tmax_t>;
 
-  ray_box_intersection_test(const std::vector<rtc::math_point>&) noexcept;
-  rtc_hot ray_intersection_tuple intersection_values_for(const rtc::math_ray& ray) const noexcept;
+  explicit ray_box_intersection_test(const std::vector<rtc::math_point>&) noexcept;
+  rtc_hot [[nodiscard]] auto intersection_values_for(const rtc::math_ray& ray) const noexcept -> ray_intersection_tuple;
 
 private:
   rtc::bounding_box bbox;

@@ -11,7 +11,7 @@ struct kd_tree::tree_node
   struct axis_data { rtc_float value; rtc::axis split; };
   union
   {
-    axis_data axis;
+    axis_data axis{};
     std::unique_ptr<kd_tree::value_type> triangles;
   };
 
@@ -24,7 +24,7 @@ struct kd_tree::tree_node
       triangles.reset();
   }
 
-  bool is_leaf() const noexcept { return !left && !right; }
+  [[nodiscard]] auto is_leaf() const noexcept -> bool { return !left && !right; }
 };
 
 }

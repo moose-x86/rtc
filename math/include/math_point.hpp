@@ -23,9 +23,9 @@ class math_point
   [[nodiscard]] constexpr auto begin() const noexcept { return std::cbegin(e); }
   [[nodiscard]] constexpr auto end() const noexcept { return std::cend(e); }
 
-  constexpr auto& x() noexcept { return e[0]; }
-  constexpr auto& y() noexcept { return e[1]; }
-  constexpr auto& z() noexcept { return e[2]; }
+  constexpr auto x() noexcept -> auto& { return e[0]; }
+  constexpr auto y() noexcept -> auto& { return e[1]; }
+  constexpr auto z() noexcept -> auto& { return e[2]; }
   [[nodiscard]] constexpr auto x() const noexcept { return e[0]; }
   [[nodiscard]] constexpr auto y() const noexcept { return e[1]; }
   [[nodiscard]] constexpr auto z() const noexcept { return e[2]; }

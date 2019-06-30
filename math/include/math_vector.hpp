@@ -70,14 +70,14 @@ inline auto operator<<(std::ostream& s, const math_vector& v) noexcept -> std::o
   return s << "[" << v.x() << ", " << v.y() << ", " << v.z() << "]v";
 }
 
-rtc_pure inline constexpr rtc_float dot(const math_vector& v1, const math_vector& v2) noexcept
+rtc_pure inline constexpr auto dot(const math_vector& v1, const math_vector& v2) noexcept -> rtc_float
 {
   return v1.x() * v2.x() + v1.y() * v2.y() + v1.z() * v2.z();
 }
 
-rtc_pure inline constexpr rtc_float lengthSQ(const math_vector& v) noexcept { return dot(v, v); }
+rtc_pure inline constexpr auto lengthSQ(const math_vector& v) noexcept -> rtc_float { return dot(v, v); }
 
-inline rtc_float length(const math_vector& v) noexcept { return std::sqrt(lengthSQ(v)); }
+inline auto length(const math_vector& v) noexcept -> rtc_float { return std::sqrt(lengthSQ(v)); }
 
 inline constexpr auto operator/(const math_vector& v, const rtc_float c) noexcept -> math_vector
 {
@@ -99,14 +99,14 @@ rtc_hot rtc_pure inline auto normalize(const math_vector& v) noexcept -> math_ve
                      std::numeric_limits<rtc_float>::max());
 }
 
-rtc_hot rtc_pure inline constexpr math_vector cross(const math_vector& v1, const math_vector& v2) noexcept
+rtc_hot rtc_pure inline constexpr auto cross(const math_vector& v1, const math_vector& v2) noexcept -> math_vector
 {
   return {v1.y() * v2.z() - v1.z() * v2.y(), v1.z() * v2.x() - v1.x() * v2.z(), v1.x() * v2.y() - v1.y() * v2.x()};
 }
 
-inline constexpr math_vector operator*(const rtc_float c, const math_vector& v) noexcept { return v * c; }
+inline constexpr auto operator*(const rtc_float c, const math_vector& v) noexcept -> math_vector { return v * c; }
 
-inline math_vector operator-(const math_vector& v) noexcept { return -1 * v; }
+inline auto operator-(const math_vector& v) noexcept -> math_vector { return -1 * v; }
 
 inline constexpr auto operator+(const math_vector& v, const math_point& p) noexcept -> math_point
 {
@@ -130,7 +130,7 @@ inline constexpr auto operator-(const math_point& p, const math_vector& v) noexc
   return {p.x() - v.x(), p.y() - v.y(), p.z() - v.z()};
 }
 
-inline rtc_float cos(const math_vector& v1, const math_vector& v2) noexcept
+inline auto cos(const math_vector& v1, const math_vector& v2) noexcept -> rtc_float
 {
   return dot(v1, v2) / (length(v1) * length(v2));
 }
