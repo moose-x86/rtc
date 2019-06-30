@@ -32,9 +32,7 @@ auto bitmap::compare(const bitmap& bmp, const std::function<bool(const rtc::colo
     for (int j{}; j < height(); ++j)
     {
       if (cmp((*this)(i, j), bmp(i, j)) == false)
-      {
         return false;
-      }
     }
   }
 
@@ -130,7 +128,8 @@ void bitmap::save(const std::string& path) const
       out_file.write((char*)&(*this)(i, height() - j - 1).red, sizeof(std::uint8_t));
     }
 
-    for (std::uint32_t k = 0; k < align; k++) out_file.write((char*)std::addressof(l_tmp), sizeof(l_tmp));
+    for (std::uint32_t k = 0; k < align; k++)
+      out_file.write((char*)std::addressof(l_tmp), sizeof(l_tmp));
   }
 }
 
@@ -151,21 +150,29 @@ auto bitmap::assign(const rtc::pixel& p) noexcept -> bool
   return in_range(p.x, p.y);
 }
 
-auto bitmap::resize(const std::uint16_t width, const std::uint16_t height) -> bitmap&
+auto bitmap::resize(const std::uint16_t width, const std::uint16_t height) noexcept -> bitmap&
 {
   base old{std::move(*this)};
+  try
+  {
+    reset();
+    base::reserve(width * height);
+    header_data.biWidth = width;
+    header_data.biHeight = height;
 
-  reset();
-  base::reserve(width * height);
-  header_data.biWidth = width;
-  header_data.biHeight = height;
+    for (std::size_t i{}; i < old.size(); ++i)
+      base::emplace_back(old[i].x, old[i].y, old[i].color);
 
-  for (std::size_t i{}; i < old.size(); ++i) base::emplace_back(old[i].x, old[i].y, old[i].color);
+    for (std::size_t i{old.size()}; i < width * height; ++i)
+      base::emplace_back(i % width, i / width, color_rgb{});
 
-  for (std::size_t i{old.size()}; i < width * height; ++i) base::emplace_back(i % width, i / width, color_rgb{});
-
-  base::shrink_to_fit();
-  return *this;
+    base::shrink_to_fit();
+    return *this;
+  }
+  catch (...)
+  {
+    base::operator=(std::move(old));
+  }
 }
 
 auto bitmap::pixel_amount() const noexcept -> std::size_t { return size(); }
@@ -285,7 +292,10 @@ auto bitmap::swap(bitmap& bmp) noexcept(noexcept(std::declval<base>().swap(std::
 auto bitmap::draw(const std::function<color_rgb(std::uint16_t, std::uint16_t)>& fn) noexcept -> bitmap&
 {
   for (auto i{0U}; i < width(); ++i)
-    for (auto j{0U}; j < height(); ++j) operator()(i, j) = fn(i, j);
+  {
+    for (auto j{0U}; j < height(); ++j)
+      operator()(i, j) = fn(i, j);
+  }
 
   return *this;
 }

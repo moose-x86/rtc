@@ -108,7 +108,7 @@ class bitmap : std::vector<rtc::pixel>
   void save(const std::string&) const;
   auto assign(const rtc::pixel&) noexcept -> bool;
   auto at(const std::uint16_t, const std::uint16_t) -> color_rgb&;
-  auto resize(const std::uint16_t, const std::uint16_t) -> bitmap&;
+  auto resize(const std::uint16_t, const std::uint16_t) noexcept -> bitmap&;
   auto operator()(const std::uint16_t, const std::uint16_t) -> color_rgb&;
   [[nodiscard]] auto at(const std::uint16_t, const std::uint16_t) const -> const color_rgb&;
   auto operator()(const std::uint16_t, const std::uint16_t) const -> const color_rgb&;
