@@ -153,6 +153,8 @@ auto bitmap::assign(const rtc::pixel& p) noexcept -> bool
 auto bitmap::resize(const std::uint16_t width, const std::uint16_t height) noexcept -> bitmap&
 {
   base old{std::move(*this)};
+  auto old_header = header_data;
+
   try
   {
     reset();
@@ -167,12 +169,13 @@ auto bitmap::resize(const std::uint16_t width, const std::uint16_t height) noexc
       base::emplace_back(i % width, i / width, color_rgb{});
 
     base::shrink_to_fit();
-    return *this;
   }
   catch (...)
   {
+    header_data = old_header;
     base::operator=(std::move(old));
   }
+  return *this;
 }
 
 auto bitmap::pixel_amount() const noexcept -> std::size_t { return size(); }
