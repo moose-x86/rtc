@@ -47,14 +47,14 @@ void point_in_triangle_test::compute_all_needed_factors(const math_point& p1, co
 auto point_in_triangle_test::get_projected_point(const math_point& p) const noexcept -> std::tuple<rtc_float, rtc_float>
 {
   switch (biggest_axis)
-    {
-      case rtc::axis::x:
-        return {p.y(), p.z()};
-      case rtc::axis::y:
-        return {p.x(), p.z()};
-      case rtc::axis::z:
-        return {p.x(), p.y()};
-    }
+  {
+    case rtc::axis::x:
+      return {p.y(), p.z()};
+    case rtc::axis::y:
+      return {p.x(), p.z()};
+    case rtc::axis::z:
+      return {p.x(), p.y()};
+  }
 
   return {};
 }

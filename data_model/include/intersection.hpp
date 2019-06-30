@@ -1,13 +1,13 @@
 #pragma once
 
+#include <iomanip>
+
 #include "math_ray.hpp"
 #include "scene_model.hpp"
 #include "utility.hpp"
-#include <iomanip>
 
 namespace rtc
 {
-
 constexpr struct wildcard
 {
   explicit wildcard() = default;
@@ -15,8 +15,7 @@ constexpr struct wildcard
 
 class intersection
 {
-public:
-
+ public:
   constexpr intersection() noexcept {}
   constexpr intersection(wildcard, rtc_float t) noexcept : object{std::in_place, 0, t} {}
   constexpr intersection(std::uint32_t i, rtc_float t) noexcept : object{std::in_place, i, t} {}
@@ -47,11 +46,11 @@ public:
   rtc_pure bool is_reflective(const rtc::scene_model&) const noexcept;
   rtc_pure bool is_refractive(const rtc::scene_model&) const noexcept;
 
-private:
+ private:
   rtc::optional_tuple<std::uint32_t, rtc_float> object;
 };
 
 constexpr intersection no_intersection{};
 std::ostream& operator<<(std::ostream& s, intersection& i) noexcept;
 
-}
+}  // namespace rtc

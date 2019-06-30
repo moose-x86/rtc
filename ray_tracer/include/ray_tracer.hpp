@@ -60,7 +60,7 @@ auto ray_tracer<T>::compute_intersection(
   assert(!std::isnan(t_temp));
 
   constexpr auto ulp{3};
-  constexpr rtc_float dt = 5.0f/rtc::pow(10.0f, std::numeric_limits<rtc_float>::digits10 - 1);
+  constexpr rtc_float dt = 5.0F/rtc::pow(10.0F, std::numeric_limits<rtc_float>::digits10 - 1);
 
   if(fgreater(t_temp, dt, ulp) && fless(t_temp, ray_triangle_hit_value, ulp))
   {

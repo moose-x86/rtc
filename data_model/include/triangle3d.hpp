@@ -1,5 +1,7 @@
 #pragma once
 
+#include <cstdint>
+#include <array>
 namespace rtc
 {
 
@@ -9,12 +11,12 @@ struct triangle3d
   constexpr triangle3d(value_type t1, value_type t2, value_type t3) noexcept : i{t1, t2, t3}
   {}
 
-  constexpr auto vertex_a() const noexcept {return i[0];}
-  constexpr auto vertex_b() const noexcept {return i[1];}
-  constexpr auto vertex_c() const noexcept {return i[2];}
+  [[nodiscard]] constexpr auto vertex_a() const noexcept {return i[0];}
+  [[nodiscard]] constexpr auto vertex_b() const noexcept {return i[1];}
+  [[nodiscard]] constexpr auto vertex_c() const noexcept {return i[2];}
 
 private:
-  value_type i[3];
+  std::array<value_type, 3> i{};
 };
 
 inline bool operator==(const triangle3d& t1, const triangle3d& t2) noexcept

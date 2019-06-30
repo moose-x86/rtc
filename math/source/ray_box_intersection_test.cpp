@@ -17,12 +17,14 @@ auto ray_box_intersection_test::intersection_values_for(const rtc::math_ray& ray
     auto t_far = (bbox.max_boundary().axis(x) - ray.origin().axis(x)) * invRayDir.axis(x);
     auto t_near = (bbox.min_boundary().axis(x) - ray.origin().axis(x)) * invRayDir.axis(x);
 
-    if (t_near > t_far) std::swap(t_near, t_far);
+    if (t_near > t_far)
+      std::swap(t_near, t_far);
 
     t_in = std::max(t_near, t_in);
     t_out = std::min(t_far, t_out);
 
-    if (t_in > t_out) return std::nullopt;
+    if (t_in > t_out)
+      return std::nullopt;
   }
 
   return std::make_tuple(t_in, t_out);

@@ -1,28 +1,29 @@
 #pragma once
-#include "math_point.hpp"
 #include <ostream>
+
+#include "math_point.hpp"
 
 namespace rtc
 {
-
 struct camera
 {
   math_point view_point;
 
   struct
   {
-    struct {
+    struct
+    {
       math_point upper_left_corner;
       math_point upper_right_corner;
       math_point lower_left_corner;
     } surface;
 
-    struct{
+    struct
+    {
       std::uint32_t x{800}, y{600};
     } resolution;
   } screen;
 };
-
 
 inline std::ostream& operator<<(std::ostream& os, const rtc::camera& c) noexcept
 {
@@ -38,4 +39,4 @@ inline std::ostream& operator<<(std::ostream& os, const rtc::camera& c) noexcept
             << "y: " << c.screen.resolution.y << "}}]cam";
 }
 
-}
+}  // namespace rtc

@@ -30,8 +30,7 @@ class rt_service
  public:
   static constexpr std::size_t queue_capacity{256};
 
-  using storage = typename _rt::storage;
-  using ray_tracer = typename _rt::rt_search;
+  using ray_tracer = _rt;
   using trace_result = std::future<rtc::intersection>;
 
   explicit rt_service(std::shared_ptr<const rtc::scene_model>);
@@ -83,8 +82,7 @@ rt_service<T>::rt_service(std::shared_ptr<const rtc::scene_model> sc) : rt_servi
   if (rtc_unlikely(!sc))
     throw std::runtime_error{"Pointer to scene_model is null."};
 
-  storage s{*sc};
-  control->rt_search = std::make_unique<ray_tracer>(std::move(s), std::move(sc));
+  control->rt_search = std::make_unique<ray_tracer>(std::move(sc));
 }
 
 template <typename T>
