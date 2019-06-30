@@ -33,7 +33,7 @@ public:
     /*protected rt_service::notify_scheduler(); */
     std::for_each(vector_base::begin(),
                   vector_base::end(),
-                  [](const auto& f) noexcept { while(is_not_ready(f)) });
+                  [](const auto& f) noexcept { while(is_not_ready(f)) {}});
     vector_base::clear();
   }
 
