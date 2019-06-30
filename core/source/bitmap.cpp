@@ -235,7 +235,9 @@ void bitmap::reset() noexcept
   header_data.biYPelsPerMeter = 2834;
 }
 
-auto bitmap::trim(const std::uint16_t x, const std::uint16_t y, const std::uint16_t width,
+auto bitmap::trim(const std::uint16_t x,
+                  const std::uint16_t y,
+                  const std::uint16_t width,
                   const std::uint16_t height) const -> bitmap
 {
   if (empty())
