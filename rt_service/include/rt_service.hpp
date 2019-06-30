@@ -44,7 +44,7 @@ class rt_service
   [[nodiscard]] rtc_hot auto trace_ray(const rtc::math_ray&) -> trace_result;
   auto thread_number() const noexcept
   {
-    return !_rt::is_thread_safe ? 1u : std::max(1u, 3 * (boost::thread::hardware_concurrency() / 4));
+    return !_rt::is_thread_safe ? 1U : std::max(1U, 3 * (boost::thread::hardware_concurrency() / 4));
   }
 
  private:
