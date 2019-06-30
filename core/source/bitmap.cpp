@@ -22,7 +22,7 @@ bitmap::bitmap(const std::uint16_t x, const std::uint16_t y) : bitmap() { resize
 auto bitmap::compare(const bitmap& bmp, const std::function<bool(const rtc::color_rgb&, const rtc::color_rgb&)>& cmp)
     -> std::optional<bool>
 {
-  if (not(width() == bmp.width() and height() == bmp.height()))
+  if (!(width() == bmp.width() && height() == bmp.height()))
     return std::nullopt;
 
   rtc::bitmap result{static_cast<std::uint16_t>(width()), static_cast<std::uint16_t>(height())};
