@@ -20,7 +20,7 @@ find_package(Boost REQUIRED)
 enable_testing()
 add_library(input_model
             source/brs.cpp
-            source/blend.cpp
+            source/collada_format.cpp
             )
 
 set_target_properties(input_model PROPERTIES
@@ -33,7 +33,7 @@ target_include_directories(input_model PUBLIC include/ ${Boost_INCLUDE_DIRS} ${A
 
 add_executable(input_model_ut
                ut/brs_ut.cpp
-               ut/blender_ut.cpp
+               ut/collada_format_ut.cpp
                )
 
 if(${ENABLE_COVERAGE})
@@ -54,4 +54,4 @@ target_link_libraries(input_model_ut PRIVATE rtc_data_model input_model gmock_ma
 add_test(input_model_ut ${CMAKE_BINARY_DIR}/input_model/input_model_ut --gtest_color=yes)
 
 file(COPY ${CMAKE_SOURCE_DIR}/assets/brs_xml/room.xml DESTINATION ${CMAKE_BINARY_DIR}/input_model/)
-file(COPY ${CMAKE_SOURCE_DIR}/assets/blender/Wind.blend DESTINATION ${CMAKE_BINARY_DIR}/input_model/)
+file(COPY ${CMAKE_SOURCE_DIR}/assets/collada/Wind.dae DESTINATION ${CMAKE_BINARY_DIR}/input_model/)

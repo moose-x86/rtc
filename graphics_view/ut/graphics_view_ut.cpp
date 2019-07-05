@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
 #include "graphics_view.hpp"
 #include "brs.hpp"
-#include "blend.hpp"
+#include "collada_format.hpp"
 #include <memory>
 #include "rtc_log.hpp"
 
@@ -126,7 +126,7 @@ TEST(graphics_view_ut, DISABLED_cornell_test)
 
 TEST(graphics_view_ut, collada_cornell_box_test)
 {
-  auto data = std::make_shared<rtc::blend>("cornell_box.dae");
+  auto data = std::make_shared<rtc::collada_format>("cornell_box.dae");
   rtc::graphics_view<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
@@ -141,7 +141,7 @@ TEST(graphics_view_ut, collada_cornell_box_test)
 
 TEST(graphics_view_ut, collada_mech_room_test)
 {
-  auto data = std::make_shared<rtc::blend>("Mech_Room.dae");
+  auto data = std::make_shared<rtc::collada_format>("Mech_Room.dae");
   rtc::graphics_view<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();

@@ -1,4 +1,4 @@
-#include "blend.hpp"
+#include "collada_format.hpp"
 
 #include <memory>
 #include <numeric>
@@ -18,10 +18,10 @@ auto release_assert(bool cond)
     std::abort();
 }
 
-struct blend::blend_impl
+struct collada_format::collada_format_impl
 {
  public:
-  blend_impl(const aiScene* ptr, scene_model& s) : scene{ptr}, sc{s} {}
+  collada_format_impl(const aiScene* ptr, scene_model& s) : scene{ptr}, sc{s} {}
 
   void validate() const;
   void load_camera();
@@ -35,7 +35,7 @@ struct blend::blend_impl
   auto get_transformation_matrix(const aiNode*);
 };
 
-auto blend::blend_impl::get_transformation_matrix(const aiNode* node)
+auto collada_format::collada_format_impl::get_transformation_matrix(const aiNode* node)
 {
   if (!node)
     return aiMatrix4x4{};
@@ -52,7 +52,7 @@ auto blend::blend_impl::get_transformation_matrix(const aiNode* node)
   return std::accumulate(m.rbegin(), m.rend(), aiMatrix4x4{}, [](auto r, const auto& m) { return r * m; });
 }
 
-void blend::blend_impl::load_camera()
+void collada_format::collada_format_impl::load_camera()
 {
   const auto& camera = scene->mCameras[0];
   const auto& node = scene->mRootNode->FindNode(camera->mName);
@@ -108,7 +108,7 @@ void rassert(bool f)
     std::abort();
 }
 
-void blend::blend_impl::load_geometry_and_materials(const aiNode* const node)
+void collada_format::collada_format_impl::load_geometry_and_materials(const aiNode* const node)
 {
   for (auto i{0U}; i < node->mNumMeshes; ++i)
   {
@@ -134,11 +134,11 @@ void blend::blend_impl::load_geometry_and_materials(const aiNode* const node)
     }
 #endif
 
-    // rassert(material->Get("$mat.blend." "transparency.alpha", 0, 0,
-    // rtc_m.kts) == 0); rassert(material->Get("$mat.blend." "diffuse.intensity",
-    // 0, 0, rtc_m.kd) == 0); rassert(material->Get("$mat.blend."
+    // rassert(material->Get("$mat.collada_format." "transparency.alpha", 0, 0,
+    // rtc_m.kts) == 0); rassert(material->Get("$mat.collada_format." "diffuse.intensity",
+    // 0, 0, rtc_m.kd) == 0); rassert(material->Get("$mat.collada_format."
     // "specular.intensity", 0, 0, rtc_m.ks) == 0);
-    // rassert(material->Get("$mat.blend." "transparency.ior", 0, 0, rtc_m.eta)
+    // rassert(material->Get("$mat.collada_format." "transparency.ior", 0, 0, rtc_m.eta)
     // == 0);
 
     // rtc_m.kts = 1.0f - rtc_m.kts;
@@ -148,7 +148,7 @@ void blend::blend_impl::load_geometry_and_materials(const aiNode* const node)
     material->Get(AI_MATKEY_COLOR_AMBIENT, c2);
     material->Get(AI_MATKEY_COLOR_REFLECTIVE, c3);
     material->Get(AI_MATKEY_COLOR_TRANSPARENT, c4);
-    // material->Get(AI_MATKEY_BLEND, rtc_m.ks);
+    // material->Get(AI_MATKEY_collada_format, rtc_m.ks);
 
     rtc_m.ka = (c2.r + c2.g + c2.b) / 3;
     material->Get(AI_MATKEY_REFRACTI, rtc_m.eta);
@@ -179,7 +179,7 @@ void blend::blend_impl::load_geometry_and_materials(const aiNode* const node)
   for (auto i{0U}; i < node->mNumChildren; ++i) load_geometry_and_materials(node->mChildren[i]);
 }
 
-void blend::blend_impl::load_lights()
+void collada_format::collada_format_impl::load_lights()
 {
   aiColor3D ambient;
 
@@ -207,7 +207,7 @@ void blend::blend_impl::load_lights()
                 ambient.b / static_cast<rtc_float>(scene->mNumLights)};
 }
 
-void blend::blend_impl::validate() const
+void collada_format::collada_format_impl::validate() const
 {
   if (!scene->HasCameras())
     throw std::runtime_error{"this scene has no camera!!"};
@@ -222,7 +222,7 @@ void blend::blend_impl::validate() const
   //  throw std::runtime_error{"this scene has no materials!!"};
 }
 
-blend::blend(const std::string& pFile)
+collada_format::collada_format(const std::string& pFile)
 {
   Assimp::Importer importer;
   auto scene = importer.ReadFile(pFile, aiProcess_CalcTangentSpace | aiProcess_Triangulate |
@@ -233,13 +233,13 @@ blend::blend(const std::string& pFile)
 
   recursive_name(scene->mRootNode, 0);
 
-  blendimpl = std::make_unique<blend_impl>(scene, *this);
-  blendimpl->validate();
-  blendimpl->load_geometry_and_materials(scene->mRootNode);
-  blendimpl->load_lights();
-  blendimpl->load_camera();
+  collada_formatimpl = std::make_unique<collada_format_impl>(scene, *this);
+  collada_formatimpl->validate();
+  collada_formatimpl->load_geometry_and_materials(scene->mRootNode);
+  collada_formatimpl->load_lights();
+  collada_formatimpl->load_camera();
 }
 
-blend::~blend() = default;
+collada_format::~collada_format() = default;
 
 }  // namespace rtc
