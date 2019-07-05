@@ -5,6 +5,7 @@
 #include "math_point.hpp"
 #include "math_vector.hpp"
 
+
 namespace rtc
 {
 struct light
@@ -39,5 +40,5 @@ inline auto inverse_square_factor(const light& l, const math_vector& direction) 
   return std::max<rtc_float>(1.0, x * (l.inv_square.a * x + l.inv_square.b) + l.inv_square.c);
 }
 
-} // namespace crtc
+} // namespace rtc
 

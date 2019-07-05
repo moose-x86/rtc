@@ -8,7 +8,6 @@ namespace rtc
 struct camera
 {
   math_point view_point;
-
   struct
   {
     struct

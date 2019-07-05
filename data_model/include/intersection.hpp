@@ -36,8 +36,10 @@ class intersection
   rtc_pure [[nodiscard]] auto triangle(const rtc::scene_model&) const noexcept -> const rtc::triangle3d&;
   rtc_pure [[nodiscard]] auto attribute(const rtc::scene_model& data) const noexcept -> const rtc::surface_material&;
 
-  rtc_pure [[nodiscard]] auto reflect(const math_ray&, const rtc::scene_model&) const noexcept -> std::optional<math_ray>;
-  rtc_pure [[nodiscard]] auto refract(const math_ray&, const rtc::scene_model&) const noexcept -> std::optional<math_ray>;
+  rtc_pure [[nodiscard]] auto reflect(const math_ray&, const rtc::scene_model&) const noexcept
+      -> std::optional<math_ray>;
+  rtc_pure [[nodiscard]] auto refract(const math_ray&, const rtc::scene_model&) const noexcept
+      -> std::optional<math_ray>;
 
   [[nodiscard]] auto hit_point(const math_ray&) const noexcept -> math_point;
   [[nodiscard]] auto color(const rtc::scene_model&) const noexcept -> const rtc::color&;

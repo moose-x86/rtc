@@ -10,6 +10,7 @@
 #include "rtc_log.hpp"
 #include "scoped_timer.hpp"
 
+
 namespace rtc
 {
 kd_tree::kd_tree(const rtc::scene_model& ss) : bbox{ss.points}
@@ -190,7 +191,6 @@ auto kd_tree::split_triangles(std::vector<std::uint32_t>&& tr_init,
       right_set.emplace_back(edge_buffer[best_axis][i].tr_index);
     }
   }
-
   return {std::move(left_set), std::move(right_set)};
 }
 
