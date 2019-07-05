@@ -24,7 +24,7 @@ struct light
   union
   {
     rtc_float radius{};
-    struct { rtc_float x, y; } side{};
+    struct { rtc_float x, y; } side;
   };
 
   struct
