@@ -33,6 +33,8 @@ struct distributed_ray_tracing_shadows
     {
       // TODO: Extract this into rtc::shadow_ray class probably with ctor which takes reference to
       //      Illumination
+      // rtc::shadow_ray<rtc::color> sr{illumination};
+
       const auto l = light.position - object.hit_point(ray);
 
       if ((cos(n, l) > 0) || object.is_refractive(*scene))
