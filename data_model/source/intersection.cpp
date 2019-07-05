@@ -108,6 +108,7 @@ rtc_pure auto intersection::attribute(const rtc::scene_model& data) const noexce
 {
   assert(std::get<0>(object.value()) < data.triangles.size());
   assert(data.material_id[std::get<0>(object.value())] < data.materials.size());
+
   return data.materials[data.material_id[std::get<0>(object.value())]];
 }
 
@@ -138,8 +139,8 @@ auto intersection::operator-(const intersection& i) const noexcept -> rtc_float
 
 auto operator<<(std::ostream& s, intersection& i) noexcept -> std::ostream&
 {
-  if(i)
-    return s << "[triangle: " << std::get<0>(i.object.value()) << ", intersect_value: " << std::get<1>(i.object.value()) << "]";
+  if(i.is_present())
+    return s << "[triangle: " << std::get<0>(i.object.value()) << ", value: " << std::get<1>(i.object.value()) << "]";
 
   return s << "[no value]";
 }

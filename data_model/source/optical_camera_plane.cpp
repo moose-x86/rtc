@@ -4,6 +4,7 @@
 
 namespace rtc
 {
+
 optical_camera_plane::optical_camera_plane(const rtc::camera& c) noexcept
     : corner{c.screen.surface.upper_left_corner},
       view_point{c.view_point},

@@ -5,7 +5,7 @@
 namespace rtc
 {
 
-struct triangle3d
+classstruct triangle3d
 {
   using value_type = std::uint32_t;
   constexpr triangle3d(value_type t1, value_type t2, value_type t3) noexcept : i{t1, t2, t3}

@@ -3,9 +3,9 @@
 #include "math_ray.hpp"
 #include "camera.hpp"
 
+
 namespace rtc
 {
-
 struct optical_camera_plane
 {
 public:

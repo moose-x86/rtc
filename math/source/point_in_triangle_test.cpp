@@ -4,7 +4,8 @@
 
 namespace rtc
 {
-point_in_triangle_test::point_in_triangle_test(const math_point& p1, const math_point& p2,
+point_in_triangle_test::point_in_triangle_test(const math_point& p1,
+                                               const math_point& p2,
                                                const math_point& p3) noexcept
     : a{}, biggest_axis{}
 {
@@ -26,7 +27,8 @@ auto point_in_triangle_test::triangle_contains(const math_point& p) const noexce
   return (ac >= 0.0F) && (bc >= 0.0F) && (ac + bc <= 1.0F);
 }
 
-void point_in_triangle_test::compute_all_needed_factors(const math_point& p1, const math_point& p2,
+void point_in_triangle_test::compute_all_needed_factors(const math_point& p1,
+                                                        const math_point& p2,
                                                         const math_point& p3) noexcept
 {
   using namespace std;

@@ -93,9 +93,11 @@ rtc_hot rtc_pure inline auto normalize(const math_vector& v) noexcept -> math_ve
 {
   const auto length = lengthSQ(v);
 
-  if (rtc_likely(length > 0.0F)) return v / std::sqrt(length);
+  if (rtc_likely(length > 0.0F))
+    return v / std::sqrt(length);
 
-  return math_vector(std::numeric_limits<rtc_float>::max(), std::numeric_limits<rtc_float>::max(),
+  return math_vector(std::numeric_limits<rtc_float>::max(),
+                     std::numeric_limits<rtc_float>::max(),
                      std::numeric_limits<rtc_float>::max());
 }
 
