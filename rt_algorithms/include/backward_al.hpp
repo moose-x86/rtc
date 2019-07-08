@@ -9,6 +9,7 @@
 #include "fast_pow.hpp"
 #include "scene_model.hpp"
 #include "utility.hpp"
+#include "math_ray.hpp"
 
 namespace rtc
 {
