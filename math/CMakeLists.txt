@@ -7,7 +7,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
 endif()
 
 if(CMAKE_COMPILER_IS_GNUCXX)
-  if (CMAKE_BUILD_TYPE STREQUAL "Debug")
+  if (CMAKE_BUILD_TYPE STREQUAL "Release")
     set(CMAKE_CXX_FLAGS "-Ofast ${SSE4_FLAG}")        ## Optimize
     #set(CMAKE_EXE_LINKER_FLAGS "-s")  ## Strip binary
    else()
