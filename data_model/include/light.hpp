@@ -1,10 +1,8 @@
 #pragma once
 
-#include <pthread.h>
 #include "color.hpp"
 #include "math_point.hpp"
 #include "math_vector.hpp"
-
 
 namespace rtc
 {
@@ -16,16 +14,18 @@ struct light
 
   enum class light_type
   {
-    point           = 1,
-    spherical       = 2,
-    circle_plane    = 4,
+    point = 1,
+    spherical = 2,
+    circle_plane = 4,
     rectangle_plane = 8,
   } type{light_type::point};
 
-  union
-  {
+  union {
     rtc_float radius{};
-    struct { rtc_float x, y; } side;
+    struct
+    {
+      rtc_float x, y;
+    } side;
   };
 
   struct
@@ -40,5 +40,5 @@ inline auto inverse_square_factor(const light& l, const math_vector& direction) 
   return std::max<rtc_float>(1.0, x * (l.inv_square.a * x + l.inv_square.b) + l.inv_square.c);
 }
 
-} // namespace rtc
+}  // namespace rtc
 
