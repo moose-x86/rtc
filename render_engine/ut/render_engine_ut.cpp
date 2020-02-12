@@ -1,25 +1,25 @@
-#include "gtest/gtest.h"
-#include "graphics_view.hpp"
+#include <memory>
+
 #include "brs.hpp"
 #include "collada_format.hpp"
-#include <memory>
+#include "gtest/gtest.h"
+#include "render_engine.hpp"
 #include "rtc_log.hpp"
 
 namespace rtc::ut
 {
-
-TEST(graphics_view_ut, DISABLED_basic_move)
+TEST(render_engine_ut, DISABLED_basic_move)
 {
   auto data = std::make_shared<rtc::brs>("room.xml");
-  rtc::graphics_view<> g{data};
+  rtc::render_engine<> g{data};
 
   auto image_view{std::move(g)};
 }
 
-TEST(graphics_view_ut, basic_room_test)
+TEST(render_engine_ut, basic_room_test)
 {
   auto data = std::make_shared<rtc::brs>("room.xml");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -31,10 +31,10 @@ TEST(graphics_view_ut, basic_room_test)
   b.save("room.bmp");
 }
 
-TEST(graphics_view_ut, kitchen_test)
+TEST(render_engine_ut, kitchen_test)
 {
   auto data = std::make_shared<rtc::brs>("kitchen.xml");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -46,10 +46,10 @@ TEST(graphics_view_ut, kitchen_test)
   b.save("kitchen.bmp");
 }
 
-TEST(graphics_view_ut, bottles_test)
+TEST(render_engine_ut, bottles_test)
 {
   auto data = std::make_shared<rtc::brs>("bottles.xml");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -61,10 +61,10 @@ TEST(graphics_view_ut, bottles_test)
   b.save("bottles.bmp");
 }
 
-TEST(graphics_view_ut, sun_room_test)
+TEST(render_engine_ut, sun_room_test)
 {
   auto data = std::make_shared<rtc::brs>("sun_room.xml");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -76,10 +76,10 @@ TEST(graphics_view_ut, sun_room_test)
   b.save("sun_room.bmp");
 }
 
-TEST(graphics_view_ut, coffee_tables_test)
+TEST(render_engine_ut, coffee_tables_test)
 {
   auto data = std::make_shared<rtc::brs>("coffee_tables.xml");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -91,11 +91,10 @@ TEST(graphics_view_ut, coffee_tables_test)
   b.save("coffee_tables.bmp");
 }
 
-
-TEST(graphics_view_ut, DISABLED_road_test)
+TEST(render_engine_ut, DISABLED_road_test)
 {
   auto data = std::make_shared<rtc::brs>("ulica.xml");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -107,11 +106,10 @@ TEST(graphics_view_ut, DISABLED_road_test)
   b.save("road.bmp");
 }
 
-
-TEST(graphics_view_ut, DISABLED_cornell_test)
+TEST(render_engine_ut, DISABLED_cornell_test)
 {
   auto data = std::make_shared<rtc::brs>("cornell_box.xml");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -123,11 +121,10 @@ TEST(graphics_view_ut, DISABLED_cornell_test)
   b.save("brs_cornell_box.bmp");
 }
 
-
-TEST(graphics_view_ut, collada_cornell_box_test)
+TEST(render_engine_ut, collada_cornell_box_test)
 {
   auto data = std::make_shared<rtc::collada_format>("cornell_box.dae");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -139,10 +136,10 @@ TEST(graphics_view_ut, collada_cornell_box_test)
   b.save("cornell_box.bmp");
 }
 
-TEST(graphics_view_ut, collada_mech_room_test)
+TEST(render_engine_ut, collada_mech_room_test)
 {
   auto data = std::make_shared<rtc::collada_format>("Mech_Room.dae");
-  rtc::graphics_view<> gv{data};
+  rtc::render_engine<> gv{data};
 
   auto start = std::chrono::high_resolution_clock::now();
   auto b = gv.bitmap();
@@ -154,4 +151,4 @@ TEST(graphics_view_ut, collada_mech_room_test)
   b.save("Mech_Room.bmp");
 }
 
-}
+}  // namespace rtc::ut

@@ -52,7 +52,7 @@ add_subdirectory(core/)
 add_subdirectory(rt_service/)
 add_subdirectory(ray_tracer/)
 add_subdirectory(rt_algorithms/)
-add_subdirectory(graphics_view/)
+add_subdirectory(render_engine/)
 
 #add_library(rtc)
 #target_link_libraries(rtc PUBLIC rtc_math input_methods data_model kd_tree)
