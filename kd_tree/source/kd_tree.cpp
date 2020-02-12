@@ -10,7 +10,6 @@
 #include "rtc_log.hpp"
 #include "scoped_timer.hpp"
 
-
 namespace rtc
 {
 kd_tree::kd_tree(const rtc::scene_model& ss) : bbox{ss.points}
@@ -19,6 +18,7 @@ kd_tree::kd_tree(const rtc::scene_model& ss) : bbox{ss.points}
   const auto& p = ss.points;
   const auto& t = ss.triangles;
   const std::uint32_t max_depth = 1.3F * std::log2(t.size()) + 8;
+
   auto make_bbox = [](auto& p, auto& tr) noexcept {
     return rtc::bounding_box{p[tr.vertex_a()], p[tr.vertex_b()], p[tr.vertex_c()]};
   };
@@ -54,52 +54,10 @@ kd_tree::~kd_tree() = default;
 kd_tree::kd_tree(kd_tree&&) noexcept = default;
 auto kd_tree::operator=(kd_tree&&) noexcept -> kd_tree& = default;
 
-void kd_tree::build_tree(std::unique_ptr<tree_node>& node,
-                         rtc::bounding_box node_bbox,
-                         std::vector<std::uint32_t> tr,
-                         const std::vector<rtc::bounding_box>& primitive_bboxes,
-                         edge_buffer_array_t& edge_buffer,
-                         const std::uint32_t depth,
-                         std::uint32_t bad_refines)
-{
-  const auto create_leaf_node = [&node, &tr] {
-    node = std::make_unique<tree_node>();
-    node->triangles = std::make_unique<kd_tree::value_type>();
-    node->triangles->insert(node->triangles->end(), tr.begin(), tr.end());
-  };
-
-  if (tr.size() <= 1 || !depth)
-    return create_leaf_node();
-
-  const auto [axis, offset, cost, old_cost] =
-      compute_node_split_paramters(edge_buffer, tr, node_bbox, primitive_bboxes);
-
-  bad_refines += (cost > old_cost) ? 1 : 0;
-
-  auto no_use_of_spliting_node = [old_cost = old_cost, cost = cost, axis = axis, &bad_refines, &tr] {
-    return ((cost > 4 * old_cost) && (tr.size() < 16)) || (axis == -1) || (bad_refines == 3);
-  };
-
-  if (no_use_of_spliting_node())
-    return create_leaf_node();
-
-  auto [left_set, right_set] = split_triangles(std::move(tr), edge_buffer, axis, offset);
-  bounding_box left_bbox{node_bbox}, right_bbox{node_bbox};
-
-  node = std::make_unique<tree_node>();
-  node->axis = {edge_buffer[axis][offset].value, static_cast<rtc::axis>(axis)};
-
-  left_bbox.max_boundary().axis(node->axis.split) = right_bbox.min_boundary().axis(node->axis.split) = node->axis.value;
-
-  build_tree(node->left, left_bbox, std::move(left_set), primitive_bboxes, edge_buffer, depth - 1, bad_refines);
-  build_tree(node->right, right_bbox, std::move(right_set), primitive_bboxes, edge_buffer, depth - 1, bad_refines);
-}
-
 auto kd_tree::compute_node_split_paramters(edge_buffer_array_t& edge_buffer,
                                            const std::vector<std::uint32_t>& tr,
                                            const rtc::bounding_box& node_bbox,
                                            const std::vector<rtc::bounding_box>& primitive_bboxes)
-    -> std::tuple<int, int, rtc_float, rtc_float>
 {
   constexpr int isect_cost{80};
   constexpr int traversal_cost{1};
@@ -163,13 +121,13 @@ auto kd_tree::compute_node_split_paramters(edge_buffer_array_t& edge_buffer,
     }
   } while ((best_axis == -1) && ((axis = next(axis), retries++) < 2));
 
-  return {best_axis, best_offset, best_cost, old_cost};
+  return std::make_tuple(best_axis, best_offset, best_cost, old_cost);
 }
 
 auto kd_tree::split_triangles(std::vector<std::uint32_t>&& tr_init,
                               const edge_buffer_array_t& edge_buffer,
                               const std::uint32_t best_axis,
-                              const std::uint32_t best_offset) -> vector_tuple<std::uint32_t, std::uint32_t>
+                              const std::uint32_t best_offset)
 {
   std::vector<std::uint32_t> tr{std::move(tr_init)}, left_set{}, right_set{};
 
@@ -191,7 +149,48 @@ auto kd_tree::split_triangles(std::vector<std::uint32_t>&& tr_init,
       right_set.emplace_back(edge_buffer[best_axis][i].tr_index);
     }
   }
-  return {std::move(left_set), std::move(right_set)};
+  return std::make_tuple(std::move(left_set), std::move(right_set));
+}
+
+void kd_tree::build_tree(std::unique_ptr<tree_node>& node,
+                         rtc::bounding_box node_bbox,
+                         std::vector<std::uint32_t> tr,
+                         const std::vector<rtc::bounding_box>& primitive_bboxes,
+                         edge_buffer_array_t& edge_buffer,
+                         const std::uint32_t depth,
+                         std::uint32_t bad_refines)
+{
+  const auto create_leaf_node = [&node, &tr] {
+    node = std::make_unique<tree_node>();
+    node->triangles = std::make_unique<kd_tree::value_type>();
+    node->triangles->insert(node->triangles->end(), tr.begin(), tr.end());
+  };
+
+  if (tr.size() <= 1 || !depth)
+    return create_leaf_node();
+
+  const auto [axis, offset, cost, old_cost] =
+      compute_node_split_paramters(edge_buffer, tr, node_bbox, primitive_bboxes);
+
+  bad_refines += (cost > old_cost) ? 1 : 0;
+
+  auto no_use_of_spliting_node = [old_cost = old_cost, cost = cost, axis = axis, &bad_refines, &tr] {
+    return ((cost > 4 * old_cost) && (tr.size() < 16)) || (axis == -1) || (bad_refines == 3);
+  };
+
+  if (no_use_of_spliting_node())
+    return create_leaf_node();
+
+  auto [left_set, right_set] = split_triangles(std::move(tr), edge_buffer, axis, offset);
+  bounding_box left_bbox{node_bbox}, right_bbox{node_bbox};
+
+  node = std::make_unique<tree_node>();
+  node->axis = {edge_buffer[axis][offset].value, static_cast<rtc::axis>(axis)};
+
+  left_bbox.max_boundary().axis(node->axis.split) = right_bbox.min_boundary().axis(node->axis.split) = node->axis.value;
+
+  build_tree(node->left, left_bbox, std::move(left_set), primitive_bboxes, edge_buffer, depth - 1, bad_refines);
+  build_tree(node->right, right_bbox, std::move(right_set), primitive_bboxes, edge_buffer, depth - 1, bad_refines);
 }
 
 }  // namespace rtc

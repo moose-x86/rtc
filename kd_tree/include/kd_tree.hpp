@@ -50,13 +50,12 @@ class kd_tree
   rtc_hot auto compute_node_split_paramters(edge_buffer_array_t &edges,
                                             const std::vector<std::uint32_t> &tr,
                                             const rtc::bounding_box &node_bbox,
-                                            const std::vector<rtc::bounding_box> &primitive_bboxes)
-      -> std::tuple<int, int, rtc_float, rtc_float>;
+                                            const std::vector<rtc::bounding_box> &primitive_bboxes);
 
   rtc_hot auto split_triangles(std::vector<std::uint32_t> &&,
                                const edge_buffer_array_t &edges,
                                const std::uint32_t best_axis,
-                               const std::uint32_t best_offset) -> vector_tuple<std::uint32_t, std::uint32_t>;
+                               const std::uint32_t best_offset);
 };
 
 }  // namespace rtc
