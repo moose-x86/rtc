@@ -1,5 +1,3 @@
-#include <boost/fiber/algo/round_robin.hpp>
-#include <boost/fiber/fiber.hpp>
 #include <boost/fiber/operations.hpp>
 #include <future>
 #include <memory>
@@ -33,7 +31,7 @@ class render_engine
   using joinable_rt = rtc::joinable_rt<rt_service>;
 
   static constexpr std::uint16_t fiber_num{rt_service::queue_capacity};
-  struct : joinable_rt
+  struct rr : joinable_rt
   {
     template <typename>
     friend class render_engine;
@@ -63,7 +61,7 @@ class render_engine
 
       joinable_rt::clear();
     }
-  } join_rt;
+  }* join_rt;
 
   const std::shared_ptr<const rtc::scene_model> scene;
 
@@ -77,7 +75,7 @@ class render_engine
 };
 
 template <typename T>
-render_engine<T>::render_engine(std::shared_ptr<const rtc::scene_model> s) : join_rt{rt_service{s}}, scene{std::move(s)}
+render_engine<T>::render_engine(std::shared_ptr<const rtc::scene_model> s) : join_rt{nullptr}, scene{std::move(s)}
 {
 }
 
@@ -87,15 +85,18 @@ auto render_engine<rt_algorithm>::bitmap() -> rtc::bitmap
   using namespace boost::fibers;
   const auto& res = scene->optical_system.screen.resolution;
 
-  use_scheduling_algorithm<algo::round_robin>();
+  //use_scheduling_algorithm<algo::round_robin>();
 
-  std::uint32_t pindex{};
+  std::atomic<std::uint32_t> pindex{};
   rtc::bitmap bmp(res.x, res.y);
   std::array<fiber, fiber_num> fibers{};
+  std::array<std::thread, (int)(0.25f*fiber_num)> threads{};
   const rtc::optical_camera_plane op{scene->optical_system};
 
   rt_algorithm rt_alg{scene};
   rt_alg.prework(bmp);
+
+  rt_service* rt{};
 
   auto fiber_fn = [&] {
     while (rtc_likely(pindex < bmp.pixel_amount()))
@@ -103,7 +104,7 @@ auto render_engine<rt_algorithm>::bitmap() -> rtc::bitmap
       auto pixel{bmp.begin() + (pindex++)};
       auto primary{op.emit_ray(pixel->x, pixel->y)};
 
-      auto c = rt_alg.make_color(primary, rtc::black, join_rt);
+      auto c = rt_alg.make_color(primary, rtc::black, *rt);
 
       DEBUG << "pixel[" << pixel->x << "," << pixel->y << "]"
             << "ray " << primary.direction() << " color: " << c;
@@ -111,11 +112,16 @@ auto render_engine<rt_algorithm>::bitmap() -> rtc::bitmap
     }
   };
 
-  std::generate(fibers.begin(), fibers.end(), [&] { return fiber{launch::post, fiber_fn}; });
+  //join_rt = new rr{rt_service{scene}};
 
-  std::for_each(fibers.begin(), fibers.end(), [](auto& f) { f.join(); });
+  rt = new rt_service{scene};
+  std::generate(threads.begin(), threads.end(), [&] { return std::thread{fiber_fn}; });
+  std::for_each(threads.begin(), threads.end(), [](auto& f) { f.join(); });
+
   rt_alg.postwork(bmp);
 
+  //delete join_rt;
+  delete rt;
   return bmp;
 }
 

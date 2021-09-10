@@ -28,7 +28,7 @@ class rt_service
   using thread_safe_queue = boost::lockfree::queue<T, boost::lockfree::fixed_sized<true>>;
 
  public:
-  static constexpr std::size_t queue_capacity{256};
+  static constexpr std::size_t queue_capacity{900};
 
   using ray_tracer = _rt;
   using trace_result = std::future<rtc::intersection>;
@@ -44,7 +44,8 @@ class rt_service
   [[nodiscard]] rtc_hot auto trace_ray(const rtc::math_ray&) -> trace_result;
   auto thread_number() const noexcept
   {
-    return !_rt::is_thread_safe ? 1U : std::max(1U, 3 * (boost::thread::hardware_concurrency() / 4));
+    //return !_rt::is_thread_safe ? 1U : std::max(1U, 3 * (boost::thread::hardware_concurrency() / 4));
+    return 12;
   }
 
  private:
@@ -169,7 +170,7 @@ void rt_service<T>::thread_execution_loop(std::size_t thread_id, control_block& 
     RELEASE << "Thread[" << thread_id << "] was interrupted!!"
             << " number of work: " << work << " total num: " << total << " stols num: " << stols
             << " work load: " << (rtc_float)work / (rtc_float)total
-            << " work stols: " << (rtc_float)stols / (rtc_float)total;
+            << " no work stols: " << (rtc_float)stols / (rtc_float)total;
   }
 }
 
